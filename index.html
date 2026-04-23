@@ -1,0 +1,1582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NA BDM – Universal Deal Management Quick Guide</title>
+<style>
+  :root {
+    --fresha-green: #00b386;
+    --fresha-dark: #1a1a2e;
+    --fresha-mid: #16213e;
+    --accent: #00d9a0;
+    --text-primary: #1f2937;
+    --text-secondary: #6b7280;
+    --bg-light: #f8fafc;
+    --bg-white: #ffffff;
+    --border: #e5e7eb;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 4px 12px rgba(0,0,0,0.04);
+    --shadow-lg: 0 8px 30px rgba(0,0,0,0.12);
+    --radius: 12px;
+    --radius-sm: 8px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, sans-serif;
+    background: var(--bg-light);
+    color: var(--text-primary);
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* HEADER */
+  header {
+    background: linear-gradient(135deg, var(--fresha-dark) 0%, var(--fresha-mid) 100%);
+    color: white;
+    padding: 28px 40px 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-lg);
+  }
+
+  .header-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 24px;
+  }
+
+  .logo-area h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.3px;
+  }
+
+  .logo-area p {
+    font-size: 0.85rem;
+    opacity: 0.65;
+    margin-top: 2px;
+  }
+
+  .fresha-badge {
+    background: var(--fresha-green);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    padding: 4px 12px;
+    border-radius: 20px;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  /* SEARCH */
+  .search-wrapper {
+    position: relative;
+    max-width: 360px;
+  }
+
+  .search-wrapper input {
+    width: 100%;
+    padding: 9px 16px 9px 38px;
+    border-radius: 8px;
+    border: 1px solid rgba(255,255,255,0.15);
+    background: rgba(255,255,255,0.1);
+    color: white;
+    font-size: 0.88rem;
+    outline: none;
+    transition: all 0.2s;
+  }
+
+  .search-wrapper input::placeholder { color: rgba(255,255,255,0.45); }
+  .search-wrapper input:focus {
+    background: rgba(255,255,255,0.18);
+    border-color: var(--accent);
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0.5;
+    font-size: 0.85rem;
+  }
+
+  /* TABS */
+  .tabs {
+    display: flex;
+    gap: 2px;
+    overflow-x: auto;
+    padding-bottom: 0;
+    scrollbar-width: none;
+  }
+
+  .tabs::-webkit-scrollbar { display: none; }
+
+  .tab-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    padding: 12px 20px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-family: inherit;
+  }
+
+  .tab-btn:hover { color: rgba(255,255,255,0.9); }
+
+  .tab-btn.active {
+    color: white;
+    border-bottom-color: var(--accent);
+    background: rgba(255,255,255,0.06);
+    border-radius: 6px 6px 0 0;
+  }
+
+  .tab-icon { font-size: 1rem; }
+
+  /* MAIN */
+  main {
+    max-width: 1100px;
+    margin: 32px auto;
+    padding: 0 24px 60px;
+  }
+
+  /* TAB PANELS */
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; animation: fadeIn 0.25s ease; }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  /* QUICK SUMMARY */
+  .quick-summary {
+    background: linear-gradient(135deg, #f0fdf9 0%, #ecfdf5 100%);
+    border: 1px solid #a7f3d0;
+    border-radius: var(--radius);
+    padding: 20px 24px;
+    margin-bottom: 28px;
+  }
+
+  .quick-summary h3 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--fresha-green);
+    margin-bottom: 12px;
+  }
+
+  .quick-summary ul { list-style: none; }
+  .quick-summary ul li {
+    padding: 5px 0;
+    font-size: 0.92rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    color: #065f46;
+  }
+
+  .quick-summary ul li::before {
+    content: "✓";
+    color: var(--fresha-green);
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  /* SECTION TITLE */
+  .section-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin: 32px 0 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .section-title::after {
+    content: "";
+    flex: 1;
+    height: 2px;
+    background: linear-gradient(to right, var(--border), transparent);
+    border-radius: 2px;
+  }
+
+  /* FUNNEL / PIPELINE CARDS */
+  .stage-grid {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 8px;
+  }
+
+  .stage-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    display: grid;
+    grid-template-columns: 180px 1fr 1fr;
+    gap: 16px;
+    align-items: start;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .stage-card:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .stage-label {
+    font-weight: 700;
+    font-size: 0.95rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .stage-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .stage-def { font-size: 0.875rem; color: var(--text-secondary); }
+  .stage-action { font-size: 0.875rem; }
+
+  .stage-action ul { list-style: none; }
+  .stage-action ul li {
+    padding: 3px 0;
+    padding-left: 14px;
+    position: relative;
+    color: var(--text-primary);
+  }
+
+  .stage-action ul li::before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: var(--fresha-green);
+    font-size: 0.8rem;
+  }
+
+  .kpi-badge {
+    display: inline-block;
+    background: #f0fdf9;
+    border: 1px solid #a7f3d0;
+    color: #065f46;
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 20px;
+    margin-top: 6px;
+  }
+
+  /* STAGE COLORS */
+  .color-new { background: #6366f1; }
+  .color-progress { background: #f59e0b; }
+  .color-connected { background: #3b82f6; }
+  .color-qualified { background: var(--fresha-green); }
+  .color-unqualified { background: #ef4444; }
+  .color-cold { background: #9ca3af; }
+  .color-demo { background: #8b5cf6; }
+  .color-proposed { background: #f59e0b; }
+  .color-invoice { background: #3b82f6; }
+  .color-purchased { background: var(--fresha-green); }
+
+  /* STEPS TABLE */
+  .steps-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg-white);
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    margin-bottom: 24px;
+  }
+
+  .steps-table thead {
+    background: linear-gradient(135deg, var(--fresha-dark), var(--fresha-mid));
+    color: white;
+  }
+
+  .steps-table thead th {
+    padding: 13px 16px;
+    text-align: left;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+  }
+
+  .steps-table tbody tr { border-bottom: 1px solid var(--border); }
+  .steps-table tbody tr:last-child { border-bottom: none; }
+  .steps-table tbody tr:hover { background: #f8fafc; }
+
+  .steps-table td {
+    padding: 13px 16px;
+    font-size: 0.875rem;
+    vertical-align: top;
+  }
+
+  .steps-table td:first-child { font-weight: 600; color: var(--text-primary); white-space: nowrap; }
+  .steps-table td:not(:first-child) { color: var(--text-secondary); }
+
+  .section-header-row td {
+    background: #f1f5f9;
+    font-weight: 700 !important;
+    color: var(--text-primary) !important;
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    padding: 10px 16px !important;
+  }
+
+  /* CHECKLIST */
+  .checklist {
+    background: var(--bg-white);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    margin-bottom: 28px;
+  }
+
+  .checklist-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  .checklist-item:last-child { border-bottom: none; }
+  .checklist-item:hover { background: #f9fafb; }
+
+  .checklist-item input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    border-radius: 4px;
+    accent-color: var(--fresha-green);
+    flex-shrink: 0;
+    margin-top: 2px;
+    cursor: pointer;
+  }
+
+  .checklist-label { font-weight: 600; font-size: 0.9rem; margin-bottom: 4px; }
+  .checklist-detail { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.5; }
+  .checklist-detail a { color: var(--fresha-green); text-decoration: none; }
+  .checklist-detail a:hover { text-decoration: underline; }
+
+  /* SNIPPET CARDS */
+  .snippet-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .snippet-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    box-shadow: var(--shadow);
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+
+  .snippet-card:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .snippet-name { font-weight: 700; font-size: 0.9rem; margin-bottom: 8px; }
+
+  .hashtag-pill {
+    display: inline-block;
+    background: #ede9fe;
+    color: #5b21b6;
+    font-family: monospace;
+    font-size: 0.78rem;
+    font-weight: 700;
+    padding: 3px 9px;
+    border-radius: 6px;
+    margin-bottom: 10px;
+  }
+
+  .snippet-card a {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.8rem;
+    color: var(--fresha-green);
+    text-decoration: none;
+    font-weight: 600;
+    margin-top: 8px;
+  }
+
+  .snippet-card a:hover { text-decoration: underline; }
+
+  /* KPI CARDS */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 14px;
+    margin-bottom: 28px;
+  }
+
+  .kpi-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 20px;
+    box-shadow: var(--shadow);
+    text-align: center;
+  }
+
+  .kpi-card .kpi-value {
+    font-size: 2.2rem;
+    font-weight: 800;
+    color: var(--fresha-green);
+    line-height: 1;
+  }
+
+  .kpi-card .kpi-label {
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    margin-top: 6px;
+    font-weight: 500;
+  }
+
+  /* RESOURCES */
+  .resource-grid {
+    display: grid;
+    gap: 10px;
+    margin-bottom: 28px;
+  }
+
+  .resource-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-sm);
+    padding: 14px 18px;
+    box-shadow: var(--shadow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  .resource-name { font-weight: 600; font-size: 0.9rem; }
+
+  .resource-links { display: flex; gap: 10px; flex-wrap: wrap; }
+
+  .resource-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    background: linear-gradient(135deg, var(--fresha-green), var(--accent));
+    color: white;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: opacity 0.15s;
+  }
+
+  .resource-link:hover { opacity: 0.85; }
+
+  /* SEARCH HIGHLIGHT */
+  .highlight { background: #fef08a; border-radius: 2px; }
+
+  /* SEARCH EMPTY */
+  .no-results {
+    text-align: center;
+    padding: 60px 20px;
+    color: var(--text-secondary);
+    font-size: 0.95rem;
+  }
+
+  /* REFERRALS */
+  .info-card {
+    background: var(--bg-white);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 22px 24px;
+    box-shadow: var(--shadow);
+    margin-bottom: 14px;
+  }
+
+  .info-card h4 { font-size: 0.95rem; font-weight: 700; margin-bottom: 8px; }
+  .info-card p, .info-card li { font-size: 0.875rem; color: var(--text-secondary); }
+
+  /* RESPONSIVE */
+  @media (max-width: 768px) {
+    header { padding: 20px 20px 0; }
+    main { padding: 0 16px 40px; }
+    .stage-card { grid-template-columns: 1fr; }
+    .header-top { flex-direction: column; align-items: flex-start; gap: 12px; }
+    .search-wrapper { max-width: 100%; }
+    .tab-btn { padding: 10px 14px; font-size: 0.82rem; }
+  }
+
+  /* PRINT PROGRESS RESET BUTTON */
+  .reset-btn {
+    background: none;
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 6px 14px;
+    font-size: 0.8rem;
+    color: var(--text-secondary);
+    cursor: pointer;
+    margin-bottom: 16px;
+    font-family: inherit;
+    transition: all 0.15s;
+  }
+
+  .reset-btn:hover { border-color: var(--fresha-green); color: var(--fresha-green); }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="header-top">
+    <div class="logo-area">
+      <h1>📋 NA BDM – Universal Deal Management Guide</h1>
+      <p>Quick reference for every stage of the sales process</p>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap;">
+      <div class="search-wrapper">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="searchInput" placeholder="Search anything..." oninput="searchContent(this.value)">
+      </div>
+      <span class="fresha-badge">Fresha</span>
+    </div>
+  </div>
+
+  <nav class="tabs" id="tabNav">
+    <button class="tab-btn active" onclick="showTab('hs-deals', this)"><span class="tab-icon">🎯</span> Leads &amp; Deals</button>
+    <button class="tab-btn" onclick="showTab('prospecting', this)"><span class="tab-icon">📞</span> Prospecting</button>
+    <button class="tab-btn" onclick="showTab('cold-calling', this)"><span class="tab-icon">☎️</span> Cold Calling</button>
+    <button class="tab-btn" onclick="showTab('discovery', this)"><span class="tab-icon">🔍</span> Discovery</button>
+    <button class="tab-btn" onclick="showTab('demo', this)"><span class="tab-icon">🖥️</span> Demo</button>
+    <button class="tab-btn" onclick="showTab('deal-manager', this)"><span class="tab-icon">💼</span> Deal Manager</button>
+    <button class="tab-btn" onclick="showTab('deal-handover', this)"><span class="tab-icon">✅</span> Deal Handover</button>
+    <button class="tab-btn" onclick="showTab('kpis', this)"><span class="tab-icon">📊</span> Pipeline KPIs</button>
+    <button class="tab-btn" onclick="showTab('snippets', this)"><span class="tab-icon">📝</span> Snippets</button>
+    <button class="tab-btn" onclick="showTab('resources', this)"><span class="tab-icon">🔗</span> Resources</button>
+    <button class="tab-btn" onclick="showTab('referrals', this)"><span class="tab-icon">🤝</span> AM Referrals</button>
+  </nav>
+</header>
+
+<main>
+
+  <!-- ===================== TAB: LEADS & DEALS ===================== -->
+  <div class="tab-panel active" id="hs-deals">
+
+    <div class="quick-summary">
+      <h3>Quick Summary</h3>
+      <ul>
+        <li>Use your <strong>LEAD Funnel</strong> to manage new prospects you want to open an opportunity with</li>
+        <li>Use your <strong>DEAL Funnel</strong> to manage opportunities you have opened until closing</li>
+        <li>Use <strong>Deal Manager</strong> to send invoices to your prospects</li>
+        <li>Use the <strong>Handover Checklist</strong> to complete responsibilities and ensure smooth handover to PSS/AM team</li>
+      </ul>
+    </div>
+
+    <div class="section-title">🔵 Lead Funnel Management</div>
+    <div class="stage-grid">
+      <div class="stage-card">
+        <div class="stage-label"><span class="stage-dot color-new"></span>New Stage</div>
+        <div class="stage-def">All leads that have not been touched. Ideally, every business in your territory.</div>
+        <div class="stage-action">
+          <ul><li>When ready to engage, add to appropriate sequence and complete tasks to engage prospect</li></ul>
+          <span class="kpi-badge">Min: 100 New Leads · Target: 200</span>
+        </div>
+      </div>
+      <div class="stage-card">
+        <div class="stage-label"><span class="stage-dot color-progress"></span>In Progress</div>
+        <div class="stage-def">All leads you are actively pursuing (in a sequence).</div>
+        <div class="stage-action">
+          <ul><li>Complete outreach tasks or any ad hoc outreach to connect with prospect</li></ul>
+          <span class="kpi-badge">Min: 75 In Progress Leads</span>
+        </div>
+      </div>
+      <div class="stage-card">
+        <div class="stage-label"><span class="stage-dot color-connected"></span>Connected</div>
+        <div class="stage-def">Leads you have made contact with and are actively trying to book a discovery/demo with.</div>
+        <div class="stage-action">
+          <ul><li>Connect with decision maker to qualify the opportunity</li></ul>
+          <span class="kpi-badge">Target: 30+ Connected Leads</span>
+        </div>
+      </div>
+      <div class="stage-card">
+        <div class="stage-label"><span class="stage-dot color-qualified"></span>Qualified</div>
+        <div class="stage-def">Leads you have done a qualification/discovery with and have qualified as an opportunity to add to your deal pipeline.</div>
+        <div class="stage-action">
+          <ul><li>Complete a qualification and book in discovery/demo meeting</li></ul>
+          <span class="kpi-badge">Min: 5/week · Target: 10/week</span>
+        </div>
+      </div>
+      <div class="stage-card">
+        <div class="stage-label"><span class="stage-dot color-unqualified"></span>Unqualified</div>
+        <div class="stage-def">Leads disqualified on the basis of not being ICP.</div>
+        <div class="stage-action">
+          <ul><li>Move lead to Unqualified Lead stage and add a note explaining why they are not worth chasing</li></ul>
+        </div>
+      </div>
+      <div class="stage-card">
+        <div class="stage-label"><span class="stage-dot color-cold"></span>Cold</div>
+        <div class="stage-def">Leads not disqualified but not currently worth chasing — unresponsive after 10 attempts, bad timing but ICP, or similar.</div>
+        <div class="stage-action">
+          <ul><li>Move to Cold stage and add a task to re-engage when appropriate with notes on context</li></ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">🚀 Deal Pipeline Management</div>
+    <div class="stage-grid">
+      <div class="stage-card">
+        <div class="stage-label"><span class="stage-dot color-demo"></span>Full Demo Booked</div>
+        <div class="stage-def">A qualified lead with a discovery/demo meeting on the calendar, actively pursuing to close in the near term.</div>
+        <div class="stage-action">
+          <ul>
+            <li>Schedule meeting with prospect (if needed)</li>
+            <li>Add line items to reflect estimated MRR of deal</li>
+            <li>Update Close Date for estimated timeline</li>
+          </ul>
+          <span class="kpi-badge">Min: 5/week · Target: 10/week</span>
+        </div>
+      </div>
+      <div class="stage-card">
+        <div class="stage-label"><span class="stage-dot color-proposed"></span>Solution Proposed</div>
+        <div class="stage-def">Demo completed to align solution to pain points. A partnership proposal has been made but not necessarily sent.</div>
+        <div class="stage-action">
+          <ul>
+            <li>Book next steps: follow-up meeting, send invoice etc.</li>
+            <li>Update line items and Close Date if needed</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stage-card">
+        <div class="stage-label"><span class="stage-dot color-invoice"></span>Invoice Sent</div>
+        <div class="stage-def">A Deal Manager deal has been created and sent to prospect.</div>
+        <div class="stage-action">
+          <ul>
+            <li>Book next meeting to walk through KYC and typeform</li>
+            <li>Use this meeting as a closing call in case they don't pay the invoice</li>
+          </ul>
+        </div>
+      </div>
+      <div class="stage-card">
+        <div class="stage-label"><span class="stage-dot color-purchased"></span>Package Purchased</div>
+        <div class="stage-def">Invoice has been paid and the deal is ready to be handed off to the PSS/AM team.</div>
+        <div class="stage-action">
+          <ul>
+            <li>Complete the Deal Handover Checklist (see Deal Handover tab)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== TAB: DEAL HANDOVER ===================== -->
+  <div class="tab-panel" id="deal-handover">
+
+    <div class="quick-summary">
+      <h3>Quick Summary</h3>
+      <ul>
+        <li>Complete all items below once the invoice is paid and the deal is ready to hand off to the PSS/AM team</li>
+        <li>Use the checklist to track progress and ensure nothing is missed before handover</li>
+      </ul>
+    </div>
+
+    <div class="section-title">✅ Deal Handover Checklist</div>
+    <p style="font-size:0.85rem;color:var(--text-secondary);margin-bottom:14px;">Track your progress below. Items save automatically.</p>
+    <button class="reset-btn" onclick="resetChecklist()">↺ Reset Checklist</button>
+    <div class="checklist" id="handover-checklist">
+      <div class="checklist-item">
+        <input type="checkbox" id="chk1" onchange="saveChecklist()">
+        <div>
+          <div class="checklist-label">KYC Submitted</div>
+          <div class="checklist-detail">Book KYC Setup meeting to review instructions then send the KYC instructions email.<br>
+            <a href="https://app.hubspot.com/templates/8467430/edit/112214587?view=ownedByMe&page=1&q=kyc" target="_blank">→ Open KYC Email Template in HubSpot</a>
+          </div>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="chk2" onchange="saveChecklist()">
+        <div>
+          <div class="checklist-label">Terminal Request (if terminal sold)</div>
+          <div class="checklist-detail">
+            In Flippy:<br>
+            1. Click <strong>TERMINAL REQUESTS</strong> at the bottom navigation bar<br>
+            2. Complete details and update price and quantity (price should be zero with terminal costs covered in invoice)<br>
+            3. Send Offer<br>
+            4. Enter the Fresha account via Flippy → Add-ons → Payments → In-Store Payments → Manage Terminals → Complete request
+          </div>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="chk3" onchange="saveChecklist()">
+        <div>
+          <div class="checklist-label">Typeform Completed</div>
+          <div class="checklist-detail">Have the partner fill in, or fill in the typeform on behalf of the partner.</div>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="chk4" onchange="saveChecklist()">
+        <div>
+          <div class="checklist-label">ASC Booked</div>
+          <div class="checklist-detail">Ensure the Account Setup Call (ASC) is booked.</div>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="chk5" onchange="saveChecklist()">
+        <div>
+          <div class="checklist-label">Complete Handover Notes</div>
+          <div class="checklist-detail">Document all relevant deal context and notes for the PSS/AM team.</div>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="chk6" onchange="saveChecklist()">
+        <div>
+          <div class="checklist-label">Complete HubSpot Task to Handover to PSS</div>
+          <div class="checklist-detail">Mark the HubSpot handover task as complete to trigger the transition to PSS.</div>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="chk7" onchange="saveChecklist()">
+        <div>
+          <div class="checklist-label">Pre-Scope Meeting</div>
+          <div class="checklist-detail">Complete pre-scope meeting with the partner before handover.</div>
+        </div>
+      </div>
+      <div class="checklist-item">
+        <input type="checkbox" id="chk8" onchange="saveChecklist()">
+        <div>
+          <div class="checklist-label">Join ASC – Warm Handover</div>
+          <div class="checklist-detail">Join the ASC to provide a warm handover to the PSS/AM team.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== TAB: PROSPECTING ===================== -->
+  <div class="tab-panel" id="prospecting">
+
+    <div class="quick-summary">
+      <h3>Quick Summary</h3>
+      <ul>
+        <li>Enroll contacts in <strong>Sequences</strong> to standardize outreach</li>
+        <li>Use <strong>Task view</strong> to work through call and email tasks</li>
+        <li>Work from <strong>LEAD or CONTACT view</strong> to complete one-off outreach</li>
+        <li>Use <strong>Snippets</strong> to complete call/meeting notes</li>
+      </ul>
+    </div>
+
+    <div class="section-title">📋 Outreach Steps</div>
+    <table class="steps-table">
+      <thead>
+        <tr>
+          <th style="width:200px;">Step</th>
+          <th>Action</th>
+          <th>Additional Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Enroll in Sequences</td>
+          <td>
+            <ul style="list-style:none;padding:0;">
+              <li style="padding:3px 0;">→ From LEAD view, select the box of any leads you want to enroll</li>
+              <li style="padding:3px 0;">→ Click <strong>ENROLL IN SEQUENCE</strong> on the horizontal bar</li>
+              <li style="padding:3px 0;">→ Choose the appropriate sequence</li>
+              <li style="padding:3px 0;">→ Review and click <strong>START SEQUENCE</strong></li>
+            </ul>
+          </td>
+          <td>In the SELECT SEQUENCE window, select <strong>"Greg Chow"</strong> as the owner to see top sequences.</td>
+        </tr>
+        <tr>
+          <td>Complete Tasks</td>
+          <td>
+            <ul style="list-style:none;padding:0;">
+              <li style="padding:3px 0;">→ Open <strong>TASKS</strong> view</li>
+              <li style="padding:3px 0;">→ Use TASK TYPE filter to find appropriate tasks</li>
+              <li style="padding:3px 0;">→ Select a group of tasks → click <strong>Start Tasks</strong></li>
+            </ul>
+          </td>
+          <td>–</td>
+        </tr>
+        <tr>
+          <td>Background / Research</td>
+          <td>
+            <ul style="list-style:none;padding:0;">
+              <li style="padding:3px 0;">→ Click on Lead to review previous call/email history</li>
+              <li style="padding:3px 0;">→ Open Contact or Provider properties in a new tab for additional activity</li>
+            </ul>
+          </td>
+          <td>–</td>
+        </tr>
+        <tr>
+          <td>Call &amp; Email Outreach</td>
+          <td>
+            <ul style="list-style:none;padding:0;">
+              <li style="padding:3px 0;">→ Click on <strong>CALL</strong> or <strong>EMAIL</strong> button to initiate outreach</li>
+            </ul>
+          </td>
+          <td>Log all calls with both the appropriate call <strong>TYPE</strong> and <strong>OUTCOME</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="section-title">➕ Creating New Leads</div>
+    <table class="steps-table">
+      <thead>
+        <tr>
+          <th style="width:200px;">Step</th>
+          <th>Action</th>
+          <th>Additional Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Create New Contact</td>
+          <td>Create a new contact record in HubSpot before creating a Lead.</td>
+          <td>–</td>
+        </tr>
+        <tr>
+          <td>Create Lead from Contact</td>
+          <td>Once a contact exists, create a Lead record linked to that contact.</td>
+          <td>–</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===================== TAB: COLD CALLING ===================== -->
+  <div class="tab-panel" id="cold-calling">
+    <div class="quick-summary">
+      <h3>Quick Summary</h3>
+      <ul>
+        <li>Content coming soon</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===================== TAB: DEMO ===================== -->
+  <div class="tab-panel" id="demo">
+    <div class="quick-summary">
+      <h3>Quick Summary</h3>
+      <ul>
+        <li>Content coming soon</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===================== TAB: DEAL MANAGER ===================== -->
+  <div class="tab-panel" id="deal-manager">
+
+    <div class="quick-summary">
+      <h3>Quick Summary</h3>
+      <ul>
+        <li>Create Deal in <a href="https://deal-manager.fresha.com/" target="_blank" style="color:#065f46;font-weight:600;">Deal Manager ↗</a></li>
+        <li>Associate with appropriate <strong>HubSpot Record ID</strong> and <strong>Flippy ID</strong></li>
+        <li>Edit Deal details to reflect the offer</li>
+        <li>Submit for Approval (if necessary)</li>
+        <li>Send deal to prospect</li>
+      </ul>
+    </div>
+
+    <div class="section-title">📋 Deal Setup Steps</div>
+    <table class="steps-table">
+      <thead>
+        <tr>
+          <th style="width:220px;">Field / Step</th>
+          <th>Definition</th>
+          <th>Action Item</th>
+          <th>Additional Detail</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="section-header-row">
+          <td colspan="4">ADD DEAL DETAILS</td>
+        </tr>
+        <tr>
+          <td>Agreement Start Date</td>
+          <td>The date on which the subscription billing cycle will start. Since the partner pays for their first month as part of their onboarding invoice, the next payment (second month) will be due 30 days from this date.</td>
+          <td>Set for <strong>30 days after</strong> when you anticipate the deal will close.</td>
+          <td>The 30 days ensures enough time to complete handover responsibilities and gives PSS time to update to an accurate agreement start date once ASC is completed.</td>
+        </tr>
+        <tr>
+          <td>Planned Go-Live Date</td>
+          <td>The date on which the partner is planning to go live on Fresha.</td>
+          <td>Set to the ideal start date discussed with the partner.</td>
+          <td>PSS can update as needed.</td>
+        </tr>
+        <tr>
+          <td>Deal Expiry Date</td>
+          <td>The deadline for the partner to accept the offer.</td>
+          <td>Set for the last day the prospect has to complete the agreement.</td>
+          <td>Use this to build urgency and prevent the offer from extending past your cutoff date.</td>
+        </tr>
+        <tr>
+          <td>Country</td>
+          <td>–</td>
+          <td>Always select the appropriate country.</td>
+          <td>–</td>
+        </tr>
+        <tr>
+          <td>Apply Soft Lock</td>
+          <td>–</td>
+          <td>Always keep box selected.</td>
+          <td>–</td>
+        </tr>
+        <tr>
+          <td>Deal Type</td>
+          <td>–</td>
+          <td>Always keep this <strong>Direct Sales</strong>.</td>
+          <td>–</td>
+        </tr>
+        <tr>
+          <td>HubSpot ID</td>
+          <td>The Record ID identifying which HubSpot deal is associated with this Deal Manager deal.</td>
+          <td>Find the Record ID in the <strong>"About this Deal"</strong> section on your HubSpot Deal.</td>
+          <td>Ensure you select the Record ID for the HubSpot deal, not another property like contact or provider.</td>
+        </tr>
+        <tr>
+          <td>Fresha Account (Flippy)</td>
+          <td>The Fresha Account (Flippy Account) that the partner will use as they onboard.</td>
+          <td>
+            → Always select <strong>"Account Already Exists"</strong><br>
+            → Create a Fresha account for partner if needed<br>
+            → Add the 7-digit code at the end of the Flippy URL as the Flippy ID<br>
+            <em>Example: https://flippy.fresha.com/providers/<strong>2842778</strong></em>
+          </td>
+          <td>If a Flippy account doesn't yet exist, create one at the end of the meeting before sending the offer so you can get the required code.</td>
+        </tr>
+
+        <tr class="section-header-row">
+          <td colspan="4">EDIT DEAL – Team Subscription</td>
+        </tr>
+        <tr>
+          <td>Pricing</td>
+          <td>–</td>
+          <td>Set to <strong>CUSTOM</strong> if changing pricing from regular rates.</td>
+          <td>Check discounting guidelines before creating offers.</td>
+        </tr>
+        <tr>
+          <td>Discount</td>
+          <td>–</td>
+          <td>Either manually change the PRICE, or set up a custom discount by dollar value or percentage.</td>
+          <td>–</td>
+        </tr>
+        <tr>
+          <td>Charge Cycles Upfront</td>
+          <td>Ensures the partner pays for their first month of subscription upfront as part of the invoice.</td>
+          <td><strong>ALWAYS keep this selected.</strong></td>
+          <td>–</td>
+        </tr>
+        <tr>
+          <td>Cap Chargeable Team Members</td>
+          <td>Caps the total number of staff that can be billed at a given location.</td>
+          <td>Only select if a special package was discussed in advance with your team lead.</td>
+          <td>Used in certain circumstances to cap total staff charged for larger businesses.</td>
+        </tr>
+        <tr>
+          <td>Blast Marketing Email Allowance</td>
+          <td>Number of Blast Marketing Emails provided free per staff member monthly.</td>
+          <td>Set pricing to CUSTOM, set Blast Marketing allowance to CUSTOM, update monthly allowance and calculation type.</td>
+          <td>Covers Blast Marketing Email allowance — automated email marketing campaigns are free and do not need to be included here.</td>
+        </tr>
+
+        <tr class="section-header-row">
+          <td colspan="4">EDIT DEAL – Add-Ons</td>
+        </tr>
+        <tr>
+          <td>Pricing</td>
+          <td>–</td>
+          <td>Set to CUSTOM if changing pricing from regular rates.</td>
+          <td>Check discounting guidelines.</td>
+        </tr>
+        <tr>
+          <td>Discount</td>
+          <td>–</td>
+          <td>Either manually change the PRICE, or set up a custom discount by dollar value or percentage.</td>
+          <td>–</td>
+        </tr>
+
+        <tr class="section-header-row">
+          <td colspan="4">EDIT DEAL – Payment Rates</td>
+        </tr>
+        <tr>
+          <td>Pricing</td>
+          <td>–</td>
+          <td>Set to CUSTOM if changing pricing from regular rates.</td>
+          <td>Check discounting guidelines.</td>
+        </tr>
+        <tr>
+          <td>Apply Custom Rate</td>
+          <td>–</td>
+          <td>
+            → Select box for any specific rates to apply a custom rate for<br>
+            → Update Percentage Rate and Fixed Amount Rate as appropriate
+          </td>
+          <td>For all rate negotiations, get a processing statement from the prospect and discuss with team lead in advance to get rate approvals from HQ.</td>
+        </tr>
+
+        <tr class="section-header-row">
+          <td colspan="4">EDIT DEAL – NCF</td>
+        </tr>
+        <tr>
+          <td>Pricing</td>
+          <td>–</td>
+          <td>Set to CUSTOM if changing pricing from regular rates.</td>
+          <td>Check discounting guidelines.</td>
+        </tr>
+
+        <tr class="section-header-row">
+          <td colspan="4">EDIT DEAL – Onboarding | Data Migration</td>
+        </tr>
+        <tr>
+          <td>Pricing (Team, Add-Ons)</td>
+          <td>–</td>
+          <td>Set to CUSTOM if changing pricing from regular rates.</td>
+          <td>Check discounting guidelines.</td>
+        </tr>
+        <tr>
+          <td>Discount</td>
+          <td>–</td>
+          <td>Either manually change the PRICE, or set up a custom discount.</td>
+          <td>–</td>
+        </tr>
+
+        <tr class="section-header-row">
+          <td colspan="4">SUBMIT &amp; SEND</td>
+        </tr>
+        <tr>
+          <td>Submit for Approval</td>
+          <td>–</td>
+          <td>Submit for approval if required before sending.</td>
+          <td>–</td>
+        </tr>
+        <tr>
+          <td>Send Deal to Partner</td>
+          <td>–</td>
+          <td>Send the completed deal to the partner via Deal Manager.</td>
+          <td>–</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ===================== TAB: SNIPPETS ===================== -->
+  <div class="tab-panel" id="snippets">
+
+    <div class="quick-summary">
+      <h3>Quick Summary</h3>
+      <ul>
+        <li>Use Snippets as prompts for key information to document in call and meeting notes</li>
+        <li>When in a call, email, or meeting note, use the <strong>#</strong> symbol to quickly open specific snippets</li>
+        <li>Use Snippets to send out standardized meeting invites</li>
+      </ul>
+    </div>
+
+    <div class="section-title">📝 Available Snippets</div>
+    <div class="snippet-grid">
+      <div class="snippet-card">
+        <div class="snippet-name">NA – Notes – Cold Call</div>
+        <div><span class="hashtag-pill">#nanotesCOLDCALL</span></div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:4px;">Use to document notes during cold call outreach.</div>
+        <a href="https://app.hubspot.com/snippets/8467430/edit/5077209?page=1&folder=764399" target="_blank">Open in HubSpot ↗</a>
+      </div>
+      <div class="snippet-card">
+        <div class="snippet-name">NA – Notes – Discovery Call</div>
+        <div><span class="hashtag-pill">#nanotesDISCO</span></div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:4px;">Use to document notes during discovery calls.</div>
+        <a href="https://app.hubspot.com/snippets/8467430/edit/5077221?page=1&folder=764399" target="_blank">Open in HubSpot ↗</a>
+      </div>
+      <div class="snippet-card">
+        <div class="snippet-name">NA – Notes – Full Demo Meeting</div>
+        <div><span class="hashtag-pill" style="background:#e0f2fe;color:#075985;">#coming soon</span></div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);">Use to document notes during full demo meetings.</div>
+      </div>
+      <div class="snippet-card">
+        <div class="snippet-name">NA – Meeting Invite – Demo Virtual</div>
+        <div><span class="hashtag-pill">#nanotesDEMO-invite-VIRTUAL</span></div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:4px;">Standardized virtual demo meeting invite.</div>
+        <a href="https://app.hubspot.com/snippets/8467430/edit/5119437?page=1&folder=764399" target="_blank">Open in HubSpot ↗</a>
+      </div>
+      <div class="snippet-card">
+        <div class="snippet-name">NA – Meeting Invite – Demo In Person</div>
+        <div><span class="hashtag-pill">#nanotesDEMO-IN-PERSON</span></div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:4px;">Standardized in-person demo meeting invite.</div>
+        <a href="https://app.hubspot.com/snippets/8467430/edit/4393749?page=1&folder=764399&q=in%20person" target="_blank">Open in HubSpot ↗</a>
+      </div>
+      <div class="snippet-card">
+        <div class="snippet-name">NA – Meeting Invite – Closing</div>
+        <div><span class="hashtag-pill" style="background:#e0f2fe;color:#075985;">#coming soon</span></div>
+        <div style="font-size:0.8rem;color:var(--text-secondary);">Standardized closing meeting invite.</div>
+      </div>
+    </div>
+
+    <div class="section-title">💡 How to Use Snippets</div>
+    <div class="info-card">
+      <h4>In any call, email, or meeting note in HubSpot:</h4>
+      <ol style="list-style:decimal;padding-left:20px;margin-top:8px;">
+        <li style="padding:4px 0;font-size:0.875rem;color:var(--text-secondary);">Type the <strong>#</strong> symbol to open the snippet picker</li>
+        <li style="padding:4px 0;font-size:0.875rem;color:var(--text-secondary);">Start typing the snippet hashtag (e.g. <code style="background:#f3f4f6;padding:1px 5px;border-radius:3px;">nanotesCOLDCALL</code>)</li>
+        <li style="padding:4px 0;font-size:0.875rem;color:var(--text-secondary);">Select the appropriate snippet from the list</li>
+        <li style="padding:4px 0;font-size:0.875rem;color:var(--text-secondary);">Fill in the prompted fields with relevant call information</li>
+      </ol>
+    </div>
+  </div>
+
+  <!-- ===================== TAB: AM REFERRALS ===================== -->
+  <div class="tab-panel" id="referrals">
+
+    <div class="quick-summary">
+      <h3>Quick Summary</h3>
+      <ul>
+        <li>When an AM refers a new business opportunity to you, act on it immediately</li>
+        <li>Track referrals separately using a dedicated HubSpot view</li>
+      </ul>
+    </div>
+
+    <div class="section-title">🤝 AM Referral Process</div>
+    <div class="info-card">
+      <h4>Create New Deal Immediately</h4>
+      <p>When an AM refers a prospect, create a new deal record in HubSpot without delay. Referrals should be prioritised as they come with existing context and a warm introduction.</p>
+    </div>
+    <div class="info-card">
+      <h4>New Business Source = Referral</h4>
+      <p>Ensure the deal's <strong>New Business Source</strong> field in HubSpot is set to <strong>Referral</strong> to properly attribute the deal and track referral performance.</p>
+    </div>
+    <div class="info-card">
+      <h4>Create a View for Referrals</h4>
+      <p>Set up a dedicated HubSpot view filtered by New Business Source = Referral so you can quickly monitor and prioritize all active referral deals in your pipeline.</p>
+    </div>
+  </div>
+
+  <!-- ===================== TAB: PIPELINE KPIs ===================== -->
+  <div class="tab-panel" id="kpis">
+
+    <div class="quick-summary">
+      <h3>Quick Summary</h3>
+      <ul>
+        <li>Use these KPIs to track whether your pipeline is healthy and on track to hit targets</li>
+        <li>Your total pipeline should be <strong>4× your Monthly MRR Target</strong></li>
+      </ul>
+    </div>
+
+    <div class="section-title">🎯 Monthly MRR Target</div>
+
+    <!-- USD -->
+    <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-secondary);margin-bottom:10px;">🇺🇸 USD</div>
+    <div class="kpi-grid" style="margin-bottom:20px;">
+      <div class="kpi-card">
+        <div class="kpi-value">$540</div>
+        <div class="kpi-label">Monthly MRR Target</div>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:0.78rem;color:var(--text-secondary);">Role</div>
+        <div style="font-size:0.82rem;font-weight:600;color:var(--text-primary);margin-top:2px;">–</div>
+        <div style="margin-top:8px;font-size:0.75rem;color:var(--fresha-green);font-weight:600;">Pipeline target: $2,160</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">$400</div>
+        <div class="kpi-label">Monthly MRR Target</div>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:0.78rem;color:var(--text-secondary);">Role</div>
+        <div style="font-size:0.82rem;font-weight:600;color:var(--text-primary);margin-top:2px;">–</div>
+        <div style="margin-top:8px;font-size:0.75rem;color:var(--fresha-green);font-weight:600;">Pipeline target: $1,600</div>
+      </div>
+    </div>
+
+    <!-- CAD -->
+    <div style="font-size:0.72rem;font-weight:700;text-transform:uppercase;letter-spacing:0.8px;color:var(--text-secondary);margin-bottom:10px;">🇨🇦 CAD</div>
+    <div class="kpi-grid" style="margin-bottom:28px;">
+      <div class="kpi-card">
+        <div class="kpi-value">$740</div>
+        <div class="kpi-label">Monthly MRR Target</div>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:0.78rem;color:var(--text-secondary);">Role</div>
+        <div style="font-size:0.82rem;font-weight:600;color:var(--text-primary);margin-top:2px;">–</div>
+        <div style="margin-top:8px;font-size:0.75rem;color:var(--fresha-green);font-weight:600;">Pipeline target: $2,960</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value">$550</div>
+        <div class="kpi-label">Monthly MRR Target</div>
+        <div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);font-size:0.78rem;color:var(--text-secondary);">Role</div>
+        <div style="font-size:0.82rem;font-weight:600;color:var(--text-primary);margin-top:2px;">–</div>
+        <div style="margin-top:8px;font-size:0.75rem;color:var(--fresha-green);font-weight:600;">Pipeline target: $2,200</div>
+      </div>
+    </div>
+
+    <div class="section-title">📊 Lead Funnel KPIs</div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-value" style="font-size:1.6rem;">100–200</div>
+        <div class="kpi-label">New Leads at all times</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value" style="font-size:1.6rem;">75+</div>
+        <div class="kpi-label">In Progress Leads at all times</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value" style="font-size:1.6rem;">30+</div>
+        <div class="kpi-label">Connected Leads at all times</div>
+      </div>
+      <div class="kpi-card">
+        <div class="kpi-value" style="font-size:1.6rem;">5–10</div>
+        <div class="kpi-label">Qualified Leads per week</div>
+      </div>
+    </div>
+
+    <div class="section-title">📊 Deal Pipeline KPIs</div>
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="kpi-value" style="font-size:1.6rem;">5–10</div>
+        <div class="kpi-label">Full Demo Booked per week</div>
+      </div>
+    </div>
+
+    <div class="section-title">💡 Pipeline Health Check</div>
+    <div class="info-card">
+      <h4>4× Coverage Rule</h4>
+      <p style="margin-top:6px;">Your total pipeline value should always be at least 4× your Monthly MRR Target. Refer to your target in the table above and multiply by 4 — that's the minimum pipeline value to maintain across all deal stages at all times.</p>
+    </div>
+  </div>
+
+  <!-- ===================== TAB: RESOURCES ===================== -->
+  <div class="tab-panel" id="resources">
+
+    <div class="quick-summary">
+      <h3>Quick Summary</h3>
+      <ul>
+        <li>All key tools, decks, and links in one place</li>
+        <li>Bookmark this page for quick access during calls and demos</li>
+      </ul>
+    </div>
+
+    <div class="section-title">📚 Sales Resources</div>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <span class="resource-name">🎨 Demo Deck</span>
+        <div class="resource-links">
+          <a class="resource-link" href="https://docs.google.com/presentation/d/11Wrw8Wpp-zHTpLcFV4W3tgXiWgaGkVlaVmDfo8BxKc8/edit?usp=sharing" target="_blank">🇨🇦 CAN Version</a>
+          <a class="resource-link" href="https://docs.google.com/presentation/d/1gk62FA9XXfxSHV_pJ4iyYQFRTh6jaBlwL9Z4MIshZ80/edit?usp=sharing" target="_blank">🇺🇸 US Version</a>
+        </div>
+      </div>
+      <div class="resource-card">
+        <span class="resource-name">💰 Package Calculator + Discounting Guidelines</span>
+        <div class="resource-links">
+          <a class="resource-link" href="file:///Users/brian.donley/Documents/Claude/Projects/BD%20Quoting%20Tool/fresha-quoting-tool.html" target="_blank">Open Package Calculator ↗</a>
+        </div>
+      </div>
+      <div class="resource-card">
+        <span class="resource-name">🧮 Commission Calculator</span>
+        <div class="resource-links">
+          <a class="resource-link" href="https://elliottbraund-fresha.github.io/fresha-commission-calculator/" target="_blank">Open Calculator ↗</a>
+        </div>
+      </div>
+      <div class="resource-card">
+        <span class="resource-name">📄 Proposal Deck</span>
+        <div class="resource-links"><span style="font-size:0.8rem;color:var(--text-secondary);">Link coming soon</span></div>
+      </div>
+      <div class="resource-card">
+        <span class="resource-name">📊 Rate Calculator</span>
+        <div class="resource-links"><span style="font-size:0.8rem;color:var(--text-secondary);">Link coming soon</span></div>
+      </div>
+    </div>
+
+    <div class="section-title">🔗 Important Links</div>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <span class="resource-name">🐬 Flippy</span>
+        <div class="resource-links">
+          <a class="resource-link" href="https://flippy.fresha.com/" target="_blank">Open Flippy ↗</a>
+        </div>
+      </div>
+      <div class="resource-card">
+        <span class="resource-name">🔶 HubSpot</span>
+        <div class="resource-links">
+          <a class="resource-link" href="https://app.hubspot.com/global-home" target="_blank">Open HubSpot ↗</a>
+        </div>
+      </div>
+      <div class="resource-card">
+        <span class="resource-name">💼 Deal Manager</span>
+        <div class="resource-links">
+          <a class="resource-link" href="https://deal-manager.fresha.com/" target="_blank">Open Deal Manager ↗</a>
+        </div>
+      </div>
+      <div class="resource-card">
+        <span class="resource-name">📔 Notion</span>
+        <div class="resource-links">
+          <a class="resource-link" href="https://www.notion.so/fresha-app" target="_blank">Open Notion ↗</a>
+        </div>
+      </div>
+      <div class="resource-card">
+        <span class="resource-name">📈 Periscope</span>
+        <div class="resource-links">
+          <a class="resource-link" href="https://app.periscopedata.com/" target="_blank">Open Periscope ↗</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== TAB: DISCOVERY ===================== -->
+  <div class="tab-panel" id="discovery">
+
+    <div class="quick-summary">
+      <h3>Core Principle</h3>
+      <ul>
+        <li>You hold all the <strong>solution</strong> information — the prospect holds all the <strong>problem</strong> information</li>
+        <li><strong>Do not give away solution info early.</strong> Collect problem info first to stay in control of the conversation</li>
+        <li>The more problem info you gather before revealing solutions, the more excited the prospect becomes to learn more</li>
+        <li>During discovery, explore four key categories in this order: <strong>⚙️ Business Efficiency → 📈 Revenue Growth → 🛡️ Revenue Protection → 💰 Cost Comparison</strong></li>
+        <li>Aim for <strong>3–5 confirmed business problems</strong> (minimum 3) that Fresha can clearly solve — confirm they are a priority to solve now</li>
+        <li>Discovery meetings should be <strong>at least 30 minutes</strong></li>
+      </ul>
+    </div>
+
+    <!-- WHY THIS MATTERS -->
+    <div class="section-title">⚖️ Why Problem-First Matters</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:28px;">
+      <div style="background:#fff5f5;border:1px solid #fecaca;border-radius:var(--radius);padding:20px 22px;">
+        <div style="font-weight:700;font-size:0.9rem;color:#b91c1c;margin-bottom:10px;">❌ Give Solution Info Too Early</div>
+        <ul style="list-style:none;padding:0;">
+          <li style="padding:5px 0;font-size:0.875rem;color:#7f1d1d;display:flex;gap:8px;align-items:flex-start;"><span>→</span><span>Prospect holds all the power in the conversation</span></li>
+          <li style="padding:5px 0;font-size:0.875rem;color:#7f1d1d;display:flex;gap:8px;align-items:flex-start;"><span>→</span><span>They stop returning your calls</span></li>
+          <li style="padding:5px 0;font-size:0.875rem;color:#7f1d1d;display:flex;gap:8px;align-items:flex-start;"><span>→</span><span>Resistant to confirming next steps</span></li>
+          <li style="padding:5px 0;font-size:0.875rem;color:#7f1d1d;display:flex;gap:8px;align-items:flex-start;"><span>→</span><span>Deal goes cold — <strong>ghosted</strong></span></li>
+          <li style="padding:5px 0;font-size:0.875rem;color:#7f1d1d;display:flex;gap:8px;align-items:flex-start;"><span>→</span><span>Uncertainty on your weekly pipeline commits</span></li>
+        </ul>
+      </div>
+      <div style="background:#f0fdf9;border:1px solid #a7f3d0;border-radius:var(--radius);padding:20px 22px;">
+        <div style="font-weight:700;font-size:0.9rem;color:#065f46;margin-bottom:10px;">✅ Collect Problem Info First</div>
+        <ul style="list-style:none;padding:0;">
+          <li style="padding:5px 0;font-size:0.875rem;color:#064e3b;display:flex;gap:8px;align-items:flex-start;"><span>→</span><span>You control the conversation and drive next steps</span></li>
+          <li style="padding:5px 0;font-size:0.875rem;color:#064e3b;display:flex;gap:8px;align-items:flex-start;"><span>→</span><span>Prospect is keen to book follow-ups</span></li>
+          <li style="padding:5px 0;font-size:0.875rem;color:#064e3b;display:flex;gap:8px;align-items:flex-start;"><span>→</span><span>Genuine excitement about solving their problems</span></li>
+          <li style="padding:5px 0;font-size:0.875rem;color:#064e3b;display:flex;gap:8px;align-items:flex-start;"><span>→</span><span>Increased desire and urgency to move forward</span></li>
+          <li style="padding:5px 0;font-size:0.875rem;color:#064e3b;display:flex;gap:8px;align-items:flex-start;"><span>→</span><span>You position yourself as a credible industry expert</span></li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- MEETING STRUCTURE -->
+    <div class="section-title">🗺️ Discovery Meeting Structure</div>
+    <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:28px 32px;margin-bottom:28px;">
+
+      <!-- Step flow container -->
+      <div style="display:flex;flex-direction:column;gap:0;">
+
+        <!-- STEP 1: Agenda -->
+        <div style="display:flex;gap:20px;align-items:stretch;">
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:0.9rem;flex-shrink:0;">1</div>
+            <div style="width:2px;flex:1;background:linear-gradient(to bottom,var(--fresha-mid),#0284c7);margin-top:4px;min-height:32px;"></div>
+          </div>
+          <div style="padding-bottom:24px;flex:1;">
+            <div style="font-weight:700;font-size:1rem;color:var(--text-primary);margin-bottom:6px;">Agenda</div>
+            <div style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Set the stage with a clear <strong>"What's in it for you"</strong> statement — typically focused on increasing business efficiency and growing revenues. Briefly explain what Fresha is and outline what you'll cover. This earns engagement before the real conversation begins.</div>
+          </div>
+        </div>
+
+        <!-- STEP 2: Business Efficiency -->
+        <div style="display:flex;gap:20px;align-items:stretch;">
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#0284c7,#0369a1);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:0.9rem;flex-shrink:0;">2</div>
+            <div style="width:2px;flex:1;background:linear-gradient(to bottom,#0284c7,#059669);margin-top:4px;min-height:32px;"></div>
+          </div>
+          <div style="padding-bottom:24px;flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <span style="font-size:1rem;">⚙️</span>
+              <div style="font-weight:700;font-size:1rem;color:#0284c7;">Business Efficiency</div>
+            </div>
+            <div style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Where is the business losing time to manual or admin-heavy processes? Scheduling, staff management, client comms, reporting. Quantify the hours and cost of that drag. <em>Questions to be added.</em></div>
+          </div>
+        </div>
+
+        <!-- STEP 3: Revenue Growth -->
+        <div style="display:flex;gap:20px;align-items:stretch;">
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#059669,#047857);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:0.9rem;flex-shrink:0;">3</div>
+            <div style="width:2px;flex:1;background:linear-gradient(to bottom,#059669,#7c3aed);margin-top:4px;min-height:32px;"></div>
+          </div>
+          <div style="padding-bottom:24px;flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <span style="font-size:1rem;">📈</span>
+              <div style="font-weight:700;font-size:1rem;color:#059669;">Revenue Growth</div>
+            </div>
+            <div style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Where is growth being left on the table? New client acquisition, rebooking rates, retail upsell, marketing reach. Are their current tools helping or hindering their ability to grow? <em>Questions to be added.</em></div>
+          </div>
+        </div>
+
+        <!-- STEP 4: Revenue Protection -->
+        <div style="display:flex;gap:20px;align-items:stretch;">
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#7c3aed,#6d28d9);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:0.9rem;flex-shrink:0;">4</div>
+            <div style="width:2px;flex:1;background:linear-gradient(to bottom,#7c3aed,#d97706);margin-top:4px;min-height:32px;"></div>
+          </div>
+          <div style="padding-bottom:24px;flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <span style="font-size:1rem;">🛡️</span>
+              <div style="font-weight:700;font-size:1rem;color:#7c3aed;">Revenue Protection</div>
+            </div>
+            <div style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Where is revenue leaking from the business? No-shows, last-minute cancellations, manual errors, unbilled services. What does that cost them monthly? <em>Questions to be added.</em></div>
+          </div>
+        </div>
+
+        <!-- STEP 5: Cost Comparison -->
+        <div style="display:flex;gap:20px;align-items:stretch;">
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#d97706,#b45309);display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:0.9rem;flex-shrink:0;">5</div>
+            <div style="width:2px;flex:1;background:linear-gradient(to bottom,#d97706,var(--fresha-green));margin-top:4px;min-height:32px;"></div>
+          </div>
+          <div style="padding-bottom:24px;flex:1;">
+            <div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;">
+              <span style="font-size:1rem;">💰</span>
+              <div style="font-weight:700;font-size:1rem;color:#d97706;">Cost Comparison</div>
+            </div>
+            <div style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Surface the true cost of their current setup — software fees, processing rates, add-on charges. Build an honest comparison so they can see the value clearly. Often the most powerful hook. <em>Questions to be added.</em></div>
+          </div>
+        </div>
+
+        <!-- STEP 6: Summary & Next Steps -->
+        <div style="display:flex;gap:20px;align-items:flex-start;">
+          <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;">
+            <div style="width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,var(--fresha-green),var(--accent));display:flex;align-items:center;justify-content:center;color:white;font-weight:800;font-size:0.9rem;flex-shrink:0;">6</div>
+          </div>
+          <div style="flex:1;">
+            <div style="font-weight:700;font-size:1rem;color:var(--text-primary);margin-bottom:6px;">Summary &amp; Next Steps</div>
+            <div style="font-size:0.875rem;color:var(--text-secondary);line-height:1.6;">Recap the 3–5 problems you've uncovered and confirm with the prospect that solving them is a priority <em>now</em>. Lock in the next meeting before you leave the call.</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Reminder -->
+      <div style="margin-top:24px;padding:12px 16px;background:#fefce8;border:1px solid #fde68a;border-radius:8px;font-size:0.85rem;color:#78350f;">
+        <strong>💡 Reminder:</strong> This session is about <em>collecting</em> problem information — not presenting solutions. Save the solution reveal for the demo/proposal stage.
+      </div>
+
+    </div>
+
+    <!-- QUANTIFY FRAMEWORK -->
+    <div class="section-title">📐 How to Quantify Every Problem</div>
+    <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:20px 24px;margin-bottom:28px;">
+      <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:16px;">For every business problem surfaced, dig into all four dimensions before moving on. Vague problems don't close deals — specific, quantified ones do.</p>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
+        <div style="text-align:center;padding:16px 12px;background:#f8fafc;border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:1.5rem;margin-bottom:6px;">❓</div>
+          <div style="font-weight:700;font-size:0.9rem;color:var(--fresha-green);">What</div>
+          <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:4px;">What exactly is the problem? What does it look like in practice?</div>
+        </div>
+        <div style="text-align:center;padding:16px 12px;background:#f8fafc;border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:1.5rem;margin-bottom:6px;">🤔</div>
+          <div style="font-weight:700;font-size:0.9rem;color:var(--fresha-green);">Why</div>
+          <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:4px;">Why does this happen? What causes it? Why hasn't it been fixed?</div>
+        </div>
+        <div style="text-align:center;padding:16px 12px;background:#f8fafc;border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:1.5rem;margin-bottom:6px;">👤</div>
+          <div style="font-weight:700;font-size:0.9rem;color:var(--fresha-green);">Who</div>
+          <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:4px;">Who manages this? Who is affected? Who makes the decision to fix it?</div>
+        </div>
+        <div style="text-align:center;padding:16px 12px;background:#f8fafc;border-radius:8px;border:1px solid var(--border);">
+          <div style="font-size:1.5rem;margin-bottom:6px;">📊</div>
+          <div style="font-weight:700;font-size:0.9rem;color:var(--fresha-green);">Impact</div>
+          <div style="font-size:0.78rem;color:var(--text-secondary);margin-top:4px;">How much time, money, or stress does this cost? How often does it happen?</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</main>
+
+<script>
+  // TAB SWITCHING
+  function showTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    btn.classList.add('active');
+    if (document.getElementById('searchInput').value) {
+      document.getElementById('searchInput').value = '';
+      clearHighlights();
+    }
+  }
+
+  // CHECKLIST PERSISTENCE
+  function saveChecklist() {
+    const state = {};
+    document.querySelectorAll('#handover-checklist input[type=checkbox]').forEach(cb => {
+      state[cb.id] = cb.checked;
+    });
+    try { localStorage.setItem('bdm_checklist', JSON.stringify(state)); } catch(e) {}
+  }
+
+  function loadChecklist() {
+    try {
+      const state = JSON.parse(localStorage.getItem('bdm_checklist') || '{}');
+      Object.entries(state).forEach(([id, checked]) => {
+        const el = document.getElementById(id);
+        if (el) el.checked = checked;
+      });
+    } catch(e) {}
+  }
+
+  function resetChecklist() {
+    document.querySelectorAll('#handover-checklist input[type=checkbox]').forEach(cb => cb.checked = false);
+    try { localStorage.removeItem('bdm_checklist'); } catch(e) {}
+  }
+
+  // SEARCH
+  function searchContent(query) {
+    clearHighlights();
+    if (!query.trim()) return;
+    const panels = document.querySelectorAll('.tab-panel');
+    const q = query.toLowerCase();
+    panels.forEach(panel => {
+      const text = panel.textContent.toLowerCase();
+      if (text.includes(q)) highlightInPanel(panel, query);
+    });
+  }
+
+  function highlightInPanel(panel, query) {
+    const walker = document.createTreeWalker(panel, NodeFilter.SHOW_TEXT, null);
+    const nodes = [];
+    while (walker.nextNode()) nodes.push(walker.currentNode);
+    const re = new RegExp('(' + query.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    nodes.forEach(node => {
+      if (node.nodeValue && re.test(node.nodeValue)) {
+        const span = document.createElement('span');
+        span.innerHTML = node.nodeValue.replace(re, '<mark class="highlight">$1</mark>');
+        node.parentNode.replaceChild(span, node);
+      }
+    });
+  }
+
+  function clearHighlights() {
+    document.querySelectorAll('mark.highlight').forEach(el => {
+      el.outerHTML = el.innerHTML;
+    });
+  }
+
+  // INIT
+  loadChecklist();
+</script>
+
+</body>
+</html>
