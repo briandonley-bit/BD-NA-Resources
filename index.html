@@ -750,198 +750,217 @@
       <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border-radius:3px;background:#6b7280;flex-shrink:0;"></div><span style="font-size:0.75rem;color:var(--text-secondary);">Lunch</span></div>
     </div>
 
-    <!-- Calendar grid -->
+    <!-- Calendar grid — time-proportional (1 slot = 15 min = 15px, 9am–5pm = 32 slots = 480px) -->
     <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:28px;">
 
       <!-- Day headers -->
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);border-bottom:2px solid var(--border);">
-        <div style="padding:12px 16px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;">
+      <div style="display:grid;grid-template-columns:46px repeat(5,1fr);border-bottom:2px solid var(--border);">
+        <div style="background:#f8fafc;border-right:1px solid var(--border);"></div>
+        <div style="padding:10px 8px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;">
           <div style="font-weight:700;font-size:0.82rem;">MON</div>
-          <div style="font-size:0.72rem;opacity:0.65;margin-top:2px;">Office Day</div>
+          <div style="font-size:0.7rem;opacity:0.6;margin-top:1px;">Office Day</div>
         </div>
-        <div style="padding:12px 16px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;border-left:1px solid rgba(255,255,255,0.1);">
+        <div style="padding:10px 8px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;border-left:1px solid rgba(255,255,255,0.1);">
           <div style="font-weight:700;font-size:0.82rem;">TUE</div>
-          <div style="font-size:0.72rem;opacity:0.65;margin-top:2px;">Office Day</div>
+          <div style="font-size:0.7rem;opacity:0.6;margin-top:1px;">Office Day</div>
         </div>
-        <div style="padding:12px 16px;text-align:center;background:linear-gradient(135deg,#6d28d9,#7c3aed);color:white;border-left:1px solid rgba(255,255,255,0.1);">
+        <div style="padding:10px 8px;text-align:center;background:linear-gradient(135deg,#5b21b6,#7c3aed);color:white;border-left:1px solid rgba(255,255,255,0.1);">
           <div style="font-weight:700;font-size:0.82rem;">WED</div>
-          <div style="font-size:0.72rem;opacity:0.65;margin-top:2px;">Field Day</div>
+          <div style="font-size:0.7rem;opacity:0.6;margin-top:1px;">Field Day</div>
         </div>
-        <div style="padding:12px 16px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;border-left:1px solid rgba(255,255,255,0.1);">
+        <div style="padding:10px 8px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;border-left:1px solid rgba(255,255,255,0.1);">
           <div style="font-weight:700;font-size:0.82rem;">THU</div>
-          <div style="font-size:0.72rem;opacity:0.65;margin-top:2px;">Office Day</div>
+          <div style="font-size:0.7rem;opacity:0.6;margin-top:1px;">Office Day</div>
         </div>
-        <div style="padding:12px 16px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;border-left:1px solid rgba(255,255,255,0.1);">
+        <div style="padding:10px 8px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;border-left:1px solid rgba(255,255,255,0.1);">
           <div style="font-weight:700;font-size:0.82rem;">FRI</div>
-          <div style="font-size:0.72rem;opacity:0.65;margin-top:2px;">Office Day</div>
+          <div style="font-size:0.7rem;opacity:0.6;margin-top:1px;">Office Day</div>
         </div>
       </div>
 
-      <!-- Schedule rows -->
-      <div style="display:grid;grid-template-columns:repeat(5,1fr);">
+      <!-- Calendar body: time ruler + 5 proportional day columns -->
+      <div style="display:flex;">
 
-        <!-- MON -->
-        <div style="padding:12px;display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--border);">
-          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Admin / Emails</div>
-            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">9 – 10am</div>
-          </div>
-          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
-            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">10 – 11:30am</div>
-          </div>
-          <div style="background:#fef9c3;border-left:3px solid #eab308;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#713f12;">Team Meeting</div>
-            <div style="font-size:0.7rem;color:#92400e;margin-top:2px;">11:30am – 12:15pm</div>
-          </div>
-          <div style="background:#f3f4f6;border-left:3px solid #6b7280;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#374151;">Lunch</div>
-            <div style="font-size:0.7rem;color:#4b5563;margin-top:2px;">12:15 – 1pm</div>
-          </div>
-          <div style="background:#dcfce7;border-left:3px solid #22c55e;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#14532d;">Meetings / Calls</div>
-            <div style="font-size:0.7rem;color:#166534;margin-top:2px;">1 – 3pm</div>
-          </div>
-          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
-            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">3 – 4:30pm</div>
-          </div>
-          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Plan Tomorrow</div>
-            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">4:30 – 5pm</div>
-          </div>
+        <!-- Time ruler -->
+        <div style="width:46px;flex-shrink:0;border-right:1px solid var(--border);position:relative;height:480px;background:#f8fafc;">
+          <div style="position:absolute;top:-6px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">9am</div>
+          <div style="position:absolute;top:54px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">10am</div>
+          <div style="position:absolute;top:114px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">11am</div>
+          <div style="position:absolute;top:174px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">12pm</div>
+          <div style="position:absolute;top:234px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">1pm</div>
+          <div style="position:absolute;top:294px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">2pm</div>
+          <div style="position:absolute;top:354px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">3pm</div>
+          <div style="position:absolute;top:414px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">4pm</div>
+          <div style="position:absolute;top:474px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">5pm</div>
         </div>
 
-        <!-- TUE -->
-        <div style="padding:12px;display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--border);">
-          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Admin / Emails</div>
-            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">9 – 9:30am</div>
-          </div>
-          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
-            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">9:30am – 12pm</div>
-          </div>
-          <div style="background:#fef9c3;border-left:3px solid #eab308;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#713f12;">Team Meeting</div>
-            <div style="font-size:0.7rem;color:#92400e;margin-top:2px;">12 – 12:30pm</div>
-          </div>
-          <div style="background:#f3f4f6;border-left:3px solid #6b7280;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#374151;">Lunch</div>
-            <div style="font-size:0.7rem;color:#4b5563;margin-top:2px;">12:30 – 1:15pm</div>
-          </div>
-          <div style="background:#dcfce7;border-left:3px solid #22c55e;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#14532d;">Meetings / Calls</div>
-            <div style="font-size:0.7rem;color:#166534;margin-top:2px;">1:15 – 2:15pm</div>
-          </div>
-          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
-            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">2:15 – 4:30pm</div>
-          </div>
-          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Plan Tomorrow</div>
-            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">4:30 – 5pm</div>
-          </div>
-        </div>
+        <!-- Day columns -->
+        <div style="flex:1;display:grid;grid-template-columns:repeat(5,1fr);">
 
-        <!-- WED -->
-        <div style="padding:12px;display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--border);background:#fdf4ff;">
-          <div style="background:#ede9fe;border-left:3px solid #3b82f6;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#1e40af;">Commute</div>
-            <div style="font-size:0.7rem;color:#1d4ed8;margin-top:2px;">9 – 9:45am</div>
-          </div>
-          <div style="background:#f3e8ff;border-left:3px solid #a855f7;border-radius:6px;padding:8px 10px;flex:1;display:flex;flex-direction:column;justify-content:space-between;">
-            <div>
-              <div style="font-weight:700;font-size:0.75rem;color:#581c87;">Field Work</div>
-              <div style="font-size:0.7rem;color:#6b21a8;margin-top:2px;">9:45am – 12pm</div>
+          <!-- shared column style: 32 rows × 15px, hourly guide lines -->
+          <!-- MON: Admin 9-10(1/5), CallBlk 10-11:30(5/11), TeamMtg 11:30-12:15(11/14), Lunch 12:15-1(14/17), Mtgs 1-3(17/25), CallBlk 3-4:30(25/31), Plan 4:30-5(31/33) -->
+          <div style="display:grid;grid-template-rows:repeat(32,15px);border-right:1px solid var(--border);background:repeating-linear-gradient(to bottom,white 0px,white 59px,#f1f5f9 59px,#f1f5f9 60px);">
+            <div style="grid-row:1/5;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#9d174d;line-height:1.2;">Admin / Emails</div>
+              <div style="font-size:0.6rem;color:#be185d;margin-top:1px;">9 - 10am</div>
             </div>
-            <div style="font-size:0.68rem;color:#7e22ce;margin-top:6px;font-style:italic;">Drop-ins &amp; in-person meetings</div>
-          </div>
-          <div style="background:#fef9c3;border-left:3px solid #eab308;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#713f12;">Team Meeting</div>
-            <div style="font-size:0.7rem;color:#92400e;margin-top:2px;">12 – 12:30pm</div>
-          </div>
-          <div style="background:#f3f4f6;border-left:3px solid #6b7280;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#374151;">Lunch</div>
-            <div style="font-size:0.7rem;color:#4b5563;margin-top:2px;">12:30 – 1:15pm</div>
-          </div>
-          <div style="background:#f3e8ff;border-left:3px solid #a855f7;border-radius:6px;padding:8px 10px;flex:1;display:flex;flex-direction:column;justify-content:space-between;">
-            <div>
-              <div style="font-weight:700;font-size:0.75rem;color:#581c87;">Field Work</div>
-              <div style="font-size:0.7rem;color:#6b21a8;margin-top:2px;">1:15 – 4pm</div>
+            <div style="grid-row:5/11;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#991b1b;line-height:1.2;">Call Block</div>
+              <div style="font-size:0.6rem;color:#b91c1c;margin-top:1px;">10 - 11:30am</div>
             </div>
-            <div style="font-size:0.68rem;color:#7e22ce;margin-top:6px;font-style:italic;">Demos &amp; discovery meetings</div>
+            <div style="grid-row:11/14;background:#fef9c3;border-left:3px solid #eab308;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#713f12;line-height:1.2;">Team Meeting</div>
+              <div style="font-size:0.6rem;color:#92400e;margin-top:1px;">11:30am - 12:15pm</div>
+            </div>
+            <div style="grid-row:14/17;background:#f3f4f6;border-left:3px solid #6b7280;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#374151;line-height:1.2;">Lunch</div>
+              <div style="font-size:0.6rem;color:#4b5563;margin-top:1px;">12:15 - 1pm</div>
+            </div>
+            <div style="grid-row:17/25;background:#dcfce7;border-left:3px solid #22c55e;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#14532d;line-height:1.2;">Meetings / Calls</div>
+              <div style="font-size:0.6rem;color:#166534;margin-top:1px;">1 - 3pm</div>
+            </div>
+            <div style="grid-row:25/31;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#991b1b;line-height:1.2;">Call Block</div>
+              <div style="font-size:0.6rem;color:#b91c1c;margin-top:1px;">3 - 4:30pm</div>
+            </div>
+            <div style="grid-row:31/33;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#9d174d;line-height:1.2;">Plan Tomorrow</div>
+              <div style="font-size:0.6rem;color:#be185d;margin-top:1px;">4:30 - 5pm</div>
+            </div>
           </div>
-          <div style="background:#ede9fe;border-left:3px solid #3b82f6;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#1e40af;">Commute / Admin</div>
-            <div style="font-size:0.7rem;color:#1d4ed8;margin-top:2px;">4 – 5pm</div>
-          </div>
-        </div>
 
-        <!-- THU -->
-        <div style="padding:12px;display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--border);">
-          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Admin / Emails</div>
-            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">9 – 9:30am</div>
+          <!-- TUE: Admin 9-9:30(1/3), CallBlk 9:30-12(3/13), TeamMtg 12-12:30(13/15), Lunch 12:30-1:15(15/18), Mtgs 1:15-2:15(18/22), CallBlk 2:15-4:30(22/31), Plan 4:30-5(31/33) -->
+          <div style="display:grid;grid-template-rows:repeat(32,15px);border-right:1px solid var(--border);background:repeating-linear-gradient(to bottom,white 0px,white 59px,#f1f5f9 59px,#f1f5f9 60px);">
+            <div style="grid-row:1/3;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#9d174d;line-height:1.2;">Admin / Emails</div>
+              <div style="font-size:0.6rem;color:#be185d;margin-top:1px;">9 - 9:30am</div>
+            </div>
+            <div style="grid-row:3/13;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#991b1b;line-height:1.2;">Call Block</div>
+              <div style="font-size:0.6rem;color:#b91c1c;margin-top:1px;">9:30am - 12pm</div>
+            </div>
+            <div style="grid-row:13/15;background:#fef9c3;border-left:3px solid #eab308;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#713f12;line-height:1.2;">Team Meeting</div>
+              <div style="font-size:0.6rem;color:#92400e;margin-top:1px;">12 - 12:30pm</div>
+            </div>
+            <div style="grid-row:15/18;background:#f3f4f6;border-left:3px solid #6b7280;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#374151;line-height:1.2;">Lunch</div>
+              <div style="font-size:0.6rem;color:#4b5563;margin-top:1px;">12:30 - 1:15pm</div>
+            </div>
+            <div style="grid-row:18/22;background:#dcfce7;border-left:3px solid #22c55e;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#14532d;line-height:1.2;">Meetings / Calls</div>
+              <div style="font-size:0.6rem;color:#166534;margin-top:1px;">1:15 - 2:15pm</div>
+            </div>
+            <div style="grid-row:22/31;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#991b1b;line-height:1.2;">Call Block</div>
+              <div style="font-size:0.6rem;color:#b91c1c;margin-top:1px;">2:15 - 4:30pm</div>
+            </div>
+            <div style="grid-row:31/33;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#9d174d;line-height:1.2;">Plan Tomorrow</div>
+              <div style="font-size:0.6rem;color:#be185d;margin-top:1px;">4:30 - 5pm</div>
+            </div>
           </div>
-          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
-            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">9:30am – 12pm</div>
-          </div>
-          <div style="background:#fef9c3;border-left:3px solid #eab308;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#713f12;">Team Meeting</div>
-            <div style="font-size:0.7rem;color:#92400e;margin-top:2px;">12 – 12:30pm</div>
-          </div>
-          <div style="background:#f3f4f6;border-left:3px solid #6b7280;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#374151;">Lunch</div>
-            <div style="font-size:0.7rem;color:#4b5563;margin-top:2px;">12:30 – 1:15pm</div>
-          </div>
-          <div style="background:#dcfce7;border-left:3px solid #22c55e;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#14532d;">Meetings / Calls</div>
-            <div style="font-size:0.7rem;color:#166534;margin-top:2px;">1:15 – 2:15pm</div>
-          </div>
-          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
-            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">2:15 – 4:30pm</div>
-          </div>
-          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Plan Tomorrow</div>
-            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">4:30 – 5pm</div>
-          </div>
-        </div>
 
-        <!-- FRI -->
-        <div style="padding:12px;display:flex;flex-direction:column;gap:6px;">
-          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Admin / Emails</div>
-            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">9 – 9:30am</div>
+          <!-- WED: Commute 9-9:45(1/4), FieldWork 9:45-12(4/13), TeamMtg 12-12:30(13/15), Lunch 12:30-1:15(15/18), FieldWork 1:15-4(18/29), Commute/Admin 4-5(29/33) -->
+          <div style="display:grid;grid-template-rows:repeat(32,15px);border-right:1px solid var(--border);background:repeating-linear-gradient(to bottom,#fdf4ff 0px,#fdf4ff 59px,#ede9fe 59px,#ede9fe 60px);">
+            <div style="grid-row:1/4;background:#dbeafe;border-left:3px solid #3b82f6;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#1e40af;line-height:1.2;">Commute</div>
+              <div style="font-size:0.6rem;color:#1d4ed8;margin-top:1px;">9 - 9:45am</div>
+            </div>
+            <div style="grid-row:4/13;background:#f3e8ff;border-left:3px solid #a855f7;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;">
+              <div>
+                <div style="font-weight:700;font-size:0.68rem;color:#581c87;line-height:1.2;">Field Work</div>
+                <div style="font-size:0.6rem;color:#6b21a8;margin-top:1px;">9:45am - 12pm</div>
+              </div>
+              <div style="font-size:0.6rem;color:#7e22ce;font-style:italic;">Drop-ins &amp; in-person meetings</div>
+            </div>
+            <div style="grid-row:13/15;background:#fef9c3;border-left:3px solid #eab308;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#713f12;line-height:1.2;">Team Meeting</div>
+              <div style="font-size:0.6rem;color:#92400e;margin-top:1px;">12 - 12:30pm</div>
+            </div>
+            <div style="grid-row:15/18;background:#f3f4f6;border-left:3px solid #6b7280;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#374151;line-height:1.2;">Lunch</div>
+              <div style="font-size:0.6rem;color:#4b5563;margin-top:1px;">12:30 - 1:15pm</div>
+            </div>
+            <div style="grid-row:18/29;background:#f3e8ff;border-left:3px solid #a855f7;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;">
+              <div>
+                <div style="font-weight:700;font-size:0.68rem;color:#581c87;line-height:1.2;">Field Work</div>
+                <div style="font-size:0.6rem;color:#6b21a8;margin-top:1px;">1:15 - 4pm</div>
+              </div>
+              <div style="font-size:0.6rem;color:#7e22ce;font-style:italic;">Demos &amp; discovery meetings</div>
+            </div>
+            <div style="grid-row:29/33;background:#dbeafe;border-left:3px solid #3b82f6;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#1e40af;line-height:1.2;">Commute / Admin</div>
+              <div style="font-size:0.6rem;color:#1d4ed8;margin-top:1px;">4 - 5pm</div>
+            </div>
           </div>
-          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
-            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">9:30 – 11:30am</div>
-          </div>
-          <div style="background:#fef9c3;border-left:3px solid #eab308;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#713f12;">Team Meeting</div>
-            <div style="font-size:0.7rem;color:#92400e;margin-top:2px;">11:30am – 12:15pm</div>
-          </div>
-          <div style="background:#f3f4f6;border-left:3px solid #6b7280;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#374151;">Lunch</div>
-            <div style="font-size:0.7rem;color:#4b5563;margin-top:2px;">12:15 – 1pm</div>
-          </div>
-          <div style="background:#dcfce7;border-left:3px solid #22c55e;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#14532d;">Meetings / Calls</div>
-            <div style="font-size:0.7rem;color:#166534;margin-top:2px;">1 – 2pm</div>
-          </div>
-          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
-            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">2 – 4:30pm</div>
-          </div>
-          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
-            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Plan Next Week</div>
-            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">4:30 – 5pm</div>
-          </div>
-        </div>
 
+          <!-- THU: same schedule as TUE -->
+          <div style="display:grid;grid-template-rows:repeat(32,15px);border-right:1px solid var(--border);background:repeating-linear-gradient(to bottom,white 0px,white 59px,#f1f5f9 59px,#f1f5f9 60px);">
+            <div style="grid-row:1/3;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#9d174d;line-height:1.2;">Admin / Emails</div>
+              <div style="font-size:0.6rem;color:#be185d;margin-top:1px;">9 - 9:30am</div>
+            </div>
+            <div style="grid-row:3/13;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#991b1b;line-height:1.2;">Call Block</div>
+              <div style="font-size:0.6rem;color:#b91c1c;margin-top:1px;">9:30am - 12pm</div>
+            </div>
+            <div style="grid-row:13/15;background:#fef9c3;border-left:3px solid #eab308;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#713f12;line-height:1.2;">Team Meeting</div>
+              <div style="font-size:0.6rem;color:#92400e;margin-top:1px;">12 - 12:30pm</div>
+            </div>
+            <div style="grid-row:15/18;background:#f3f4f6;border-left:3px solid #6b7280;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#374151;line-height:1.2;">Lunch</div>
+              <div style="font-size:0.6rem;color:#4b5563;margin-top:1px;">12:30 - 1:15pm</div>
+            </div>
+            <div style="grid-row:18/22;background:#dcfce7;border-left:3px solid #22c55e;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#14532d;line-height:1.2;">Meetings / Calls</div>
+              <div style="font-size:0.6rem;color:#166534;margin-top:1px;">1:15 - 2:15pm</div>
+            </div>
+            <div style="grid-row:22/31;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#991b1b;line-height:1.2;">Call Block</div>
+              <div style="font-size:0.6rem;color:#b91c1c;margin-top:1px;">2:15 - 4:30pm</div>
+            </div>
+            <div style="grid-row:31/33;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#9d174d;line-height:1.2;">Plan Tomorrow</div>
+              <div style="font-size:0.6rem;color:#be185d;margin-top:1px;">4:30 - 5pm</div>
+            </div>
+          </div>
+
+          <!-- FRI: Admin 9-9:30(1/3), CallBlk 9:30-11:30(3/11), TeamMtg 11:30-12:15(11/14), Lunch 12:15-1(14/17), Mtgs 1-2(17/21), CallBlk 2-4:30(21/31), Plan 4:30-5(31/33) -->
+          <div style="display:grid;grid-template-rows:repeat(32,15px);background:repeating-linear-gradient(to bottom,white 0px,white 59px,#f1f5f9 59px,#f1f5f9 60px);">
+            <div style="grid-row:1/3;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#9d174d;line-height:1.2;">Admin / Emails</div>
+              <div style="font-size:0.6rem;color:#be185d;margin-top:1px;">9 - 9:30am</div>
+            </div>
+            <div style="grid-row:3/11;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#991b1b;line-height:1.2;">Call Block</div>
+              <div style="font-size:0.6rem;color:#b91c1c;margin-top:1px;">9:30 - 11:30am</div>
+            </div>
+            <div style="grid-row:11/14;background:#fef9c3;border-left:3px solid #eab308;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#713f12;line-height:1.2;">Team Meeting</div>
+              <div style="font-size:0.6rem;color:#92400e;margin-top:1px;">11:30am - 12:15pm</div>
+            </div>
+            <div style="grid-row:14/17;background:#f3f4f6;border-left:3px solid #6b7280;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#374151;line-height:1.2;">Lunch</div>
+              <div style="font-size:0.6rem;color:#4b5563;margin-top:1px;">12:15 - 1pm</div>
+            </div>
+            <div style="grid-row:17/21;background:#dcfce7;border-left:3px solid #22c55e;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#14532d;line-height:1.2;">Meetings / Calls</div>
+              <div style="font-size:0.6rem;color:#166534;margin-top:1px;">1 - 2pm</div>
+            </div>
+            <div style="grid-row:21/31;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#991b1b;line-height:1.2;">Call Block</div>
+              <div style="font-size:0.6rem;color:#b91c1c;margin-top:1px;">2 - 4:30pm</div>
+            </div>
+            <div style="grid-row:31/33;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:4px 5px;overflow:hidden;">
+              <div style="font-weight:700;font-size:0.68rem;color:#9d174d;line-height:1.2;">Plan Next Week</div>
+              <div style="font-size:0.6rem;color:#be185d;margin-top:1px;">4:30 - 5pm</div>
+            </div>
+          </div>
+
+        </div>
       </div>
     </div>
 
