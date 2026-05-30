@@ -157,22 +157,20 @@
     font-size: 0.85rem;
   }
 
-  /* TABS */
-  .tabs {
+  /* TOP NAV */
+  .topnav {
     display: flex;
-    gap: 2px;
-    overflow-x: auto;
-    padding-bottom: 0;
-    scrollbar-width: none;
+    align-items: stretch;
+    gap: 1px;
+    padding: 0;
+    flex-wrap: wrap;
   }
 
-  .tabs::-webkit-scrollbar { display: none; }
-
-  .tab-btn {
+  .nav-item {
     background: none;
     border: none;
     color: rgba(255,255,255,0.6);
-    padding: 12px 20px;
+    padding: 12px 16px;
     font-size: 0.875rem;
     font-weight: 500;
     cursor: pointer;
@@ -183,18 +181,117 @@
     align-items: center;
     gap: 7px;
     font-family: inherit;
-  }
-
-  .tab-btn:hover { color: rgba(255,255,255,0.9); }
-
-  .tab-btn.active {
-    color: white;
-    border-bottom-color: var(--accent);
-    background: rgba(255,255,255,0.06);
     border-radius: 6px 6px 0 0;
   }
 
-  .tab-icon { font-size: 1rem; }
+  .nav-item:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.04); }
+
+  .nav-item.active {
+    color: white;
+    border-bottom-color: var(--accent);
+    background: rgba(255,255,255,0.06);
+  }
+
+  /* Dropdown group */
+  .nav-group {
+    position: relative;
+    display: flex;
+    align-items: stretch;
+  }
+
+  .nav-group-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    padding: 12px 16px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: inherit;
+    border-radius: 6px 6px 0 0;
+  }
+
+  .nav-group-btn:hover { color: rgba(255,255,255,0.9); background: rgba(255,255,255,0.04); }
+
+  .nav-group.open .nav-group-btn,
+  .nav-group.active .nav-group-btn {
+    color: white;
+  }
+
+  .nav-group.active .nav-group-btn {
+    border-bottom-color: var(--accent);
+    background: rgba(255,255,255,0.06);
+  }
+
+  .nav-group.open .nav-group-btn {
+    background: rgba(255,255,255,0.08);
+  }
+
+  .chevron {
+    font-size: 0.6rem;
+    opacity: 0.6;
+    transition: transform 0.2s;
+    margin-left: 1px;
+  }
+
+  .nav-group.open .chevron { transform: rotate(180deg); }
+
+  /* Dropdown panel */
+  .nav-dropdown {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--fresha-dark);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-top: 2px solid var(--accent);
+    border-radius: 0 8px 8px 8px;
+    min-width: 190px;
+    box-shadow: 0 8px 28px rgba(0,0,0,0.35);
+    z-index: 300;
+    overflow: hidden;
+  }
+
+  .nav-group.open .nav-dropdown { display: block; animation: dropIn 0.15s ease; }
+
+  @keyframes dropIn { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .nav-dropdown button {
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    width: 100%;
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.65);
+    padding: 10px 16px;
+    font-size: 0.85rem;
+    font-family: inherit;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.15s;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .nav-dropdown button:last-child { border-bottom: none; }
+
+  .nav-dropdown button:hover {
+    background: rgba(255,255,255,0.08);
+    color: white;
+  }
+
+  .nav-dropdown button.active {
+    color: var(--accent);
+    background: rgba(0,217,160,0.1);
+    font-weight: 600;
+  }
 
   /* MAIN */
   main {
@@ -581,7 +678,7 @@
     .stage-card { grid-template-columns: 1fr; }
     .header-top { flex-direction: column; align-items: flex-start; gap: 12px; }
     .search-wrapper { max-width: 100%; }
-    .tab-btn { padding: 10px 14px; font-size: 0.82rem; }
+    .nav-item, .nav-group-btn { padding: 10px 12px; font-size: 0.82rem; }
   }
 
   /* PRINT PROGRESS RESET BUTTON */
@@ -629,19 +726,57 @@
     </div>
   </div>
 
-  <nav class="tabs" id="tabNav">
-    <button class="tab-btn active" onclick="showTab('overview', this)"><span class="tab-icon">🏠</span> Overview</button>
-    <button class="tab-btn" onclick="showTab('hs-deals', this)"><span class="tab-icon">🎯</span> Leads &amp; Deals</button>
-    <button class="tab-btn" onclick="showTab('prospecting', this)"><span class="tab-icon">📞</span> Prospecting</button>
-    <button class="tab-btn" onclick="showTab('cold-calling', this)"><span class="tab-icon">☎️</span> Cold Calling</button>
-    <button class="tab-btn" onclick="showTab('discovery', this)"><span class="tab-icon">🔍</span> Discovery</button>
-    <button class="tab-btn" onclick="showTab('demo', this)"><span class="tab-icon">🖥️</span> Demo</button>
-    <button class="tab-btn" onclick="showTab('deal-manager', this)"><span class="tab-icon">💼</span> Deal Manager</button>
-    <button class="tab-btn" onclick="showTab('deal-handover', this)"><span class="tab-icon">✅</span> Deal Handover</button>
-    <button class="tab-btn" onclick="showTab('kpis', this)"><span class="tab-icon">📊</span> Pipeline KPIs</button>
-    <button class="tab-btn" onclick="showTab('snippets', this)"><span class="tab-icon">📝</span> Snippets</button>
-    <button class="tab-btn" onclick="showTab('resources', this)"><span class="tab-icon">🔗</span> Resources</button>
-    <button class="tab-btn" onclick="showTab('referrals', this)"><span class="tab-icon">🤝</span> AM Referrals</button>
+  <nav class="topnav" id="topNav">
+
+    <!-- Overview -->
+    <button class="nav-item active" onclick="showTab('overview', this)" data-tabid="overview">🏠 Overview</button>
+
+    <!-- HubSpot -->
+    <div class="nav-group" id="group-hubspot">
+      <button class="nav-group-btn" onclick="toggleDropdown('hubspot')">🎯 HubSpot <span class="chevron">▾</span></button>
+      <div class="nav-dropdown">
+        <button onclick="showTab('hs-deals', this)" data-tabid="hs-deals" data-anchor="lead-pipeline">📋 Lead Pipeline</button>
+        <button onclick="showTab('hs-deals', this)" data-tabid="hs-deals" data-anchor="deal-pipeline">💼 Deal Pipeline</button>
+      </div>
+    </div>
+
+    <!-- Sales Process -->
+    <div class="nav-group" id="group-sales">
+      <button class="nav-group-btn" onclick="toggleDropdown('sales')">📋 Sales Process <span class="chevron">▾</span></button>
+      <div class="nav-dropdown">
+        <button onclick="showTab('prospecting', this)" data-tabid="prospecting">📞 Prospecting</button>
+        <button onclick="showTab('cold-calling', this)" data-tabid="cold-calling">☎️ Cold Calling</button>
+        <button onclick="showTab('discovery', this)" data-tabid="discovery">🔍 Discovery Meeting</button>
+        <button onclick="showTab('demo', this)" data-tabid="demo">🖥️ Demo Meeting</button>
+        <button onclick="showTab('deal-handover', this)" data-tabid="deal-handover">✅ Deal Handover</button>
+      </div>
+    </div>
+
+    <!-- Deal Manager -->
+    <button class="nav-item" onclick="showTab('deal-manager', this)" data-tabid="deal-manager">💼 Deal Manager</button>
+
+    <!-- KPIs -->
+    <button class="nav-item" onclick="showTab('kpis', this)" data-tabid="kpis">📊 KPIs</button>
+
+    <!-- Resources -->
+    <div class="nav-group" id="group-resources">
+      <button class="nav-group-btn" onclick="toggleDropdown('resources')">🔗 Resources <span class="chevron">▾</span></button>
+      <div class="nav-dropdown">
+        <button onclick="showTab('resources', this)" data-tabid="resources">🔗 Tools &amp; Links</button>
+        <button onclick="showTab('snippets', this)" data-tabid="snippets">📝 Snippets</button>
+        <button onclick="showTab('templates', this)" data-tabid="templates">📄 Templates</button>
+        <button onclick="showTab('resources', this)" data-tabid="resources" data-anchor="slack-channels">💬 Slack Channels</button>
+      </div>
+    </div>
+
+    <!-- Rules of Engagement -->
+    <div class="nav-group" id="group-roe">
+      <button class="nav-group-btn" onclick="toggleDropdown('roe')">⚖️ ROE <span class="chevron">▾</span></button>
+      <div class="nav-dropdown">
+        <button onclick="showTab('referrals', this)" data-tabid="referrals">🤝 Inbound Leads</button>
+      </div>
+    </div>
+
   </nav>
 </header>
 
@@ -750,217 +885,198 @@
       <div style="display:flex;align-items:center;gap:6px;"><div style="width:12px;height:12px;border-radius:3px;background:#6b7280;flex-shrink:0;"></div><span style="font-size:0.75rem;color:var(--text-secondary);">Lunch</span></div>
     </div>
 
-    <!-- Calendar grid — time-proportional (1 slot = 15 min = 17px, 9am–5pm = 32 slots = 544px) -->
-    <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);margin-bottom:28px;overflow:hidden;">
+    <!-- Calendar grid -->
+    <div style="background:var(--bg-white);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden;margin-bottom:28px;">
 
       <!-- Day headers -->
-      <div style="display:grid;grid-template-columns:46px repeat(5,1fr);border-bottom:2px solid var(--border);">
-        <div style="background:#f8fafc;border-right:1px solid var(--border);"></div>
-        <div style="padding:10px 8px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;">
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);border-bottom:2px solid var(--border);">
+        <div style="padding:12px 16px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;">
           <div style="font-weight:700;font-size:0.82rem;">MON</div>
-          <div style="font-size:0.7rem;opacity:0.6;margin-top:1px;">Office Day</div>
+          <div style="font-size:0.72rem;opacity:0.65;margin-top:2px;">Office Day</div>
         </div>
-        <div style="padding:10px 8px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;border-left:1px solid rgba(255,255,255,0.1);">
+        <div style="padding:12px 16px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;border-left:1px solid rgba(255,255,255,0.1);">
           <div style="font-weight:700;font-size:0.82rem;">TUE</div>
-          <div style="font-size:0.7rem;opacity:0.6;margin-top:1px;">Office Day</div>
+          <div style="font-size:0.72rem;opacity:0.65;margin-top:2px;">Office Day</div>
         </div>
-        <div style="padding:10px 8px;text-align:center;background:linear-gradient(135deg,#5b21b6,#7c3aed);color:white;border-left:1px solid rgba(255,255,255,0.1);">
+        <div style="padding:12px 16px;text-align:center;background:linear-gradient(135deg,#6d28d9,#7c3aed);color:white;border-left:1px solid rgba(255,255,255,0.1);">
           <div style="font-weight:700;font-size:0.82rem;">WED</div>
-          <div style="font-size:0.7rem;opacity:0.6;margin-top:1px;">Field Day</div>
+          <div style="font-size:0.72rem;opacity:0.65;margin-top:2px;">Field Day</div>
         </div>
-        <div style="padding:10px 8px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;border-left:1px solid rgba(255,255,255,0.1);">
+        <div style="padding:12px 16px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;border-left:1px solid rgba(255,255,255,0.1);">
           <div style="font-weight:700;font-size:0.82rem;">THU</div>
-          <div style="font-size:0.7rem;opacity:0.6;margin-top:1px;">Office Day</div>
+          <div style="font-size:0.72rem;opacity:0.65;margin-top:2px;">Office Day</div>
         </div>
-        <div style="padding:10px 8px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;border-left:1px solid rgba(255,255,255,0.1);">
+        <div style="padding:12px 16px;text-align:center;background:linear-gradient(135deg,var(--fresha-dark),var(--fresha-mid));color:white;border-left:1px solid rgba(255,255,255,0.1);">
           <div style="font-weight:700;font-size:0.82rem;">FRI</div>
-          <div style="font-size:0.7rem;opacity:0.6;margin-top:1px;">Office Day</div>
+          <div style="font-size:0.72rem;opacity:0.65;margin-top:2px;">Office Day</div>
         </div>
       </div>
 
-      <!-- Calendar body: time ruler + 5 proportional day columns -->
-      <div style="display:flex;">
+      <!-- Schedule rows -->
+      <div style="display:grid;grid-template-columns:repeat(5,1fr);">
 
-        <!-- Time ruler — 17px/slot × 4 slots/hr = 68px/hr, total 544px -->
-        <div style="width:46px;flex-shrink:0;border-right:1px solid var(--border);position:relative;height:544px;background:#f8fafc;">
-          <div style="position:absolute;top:2px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">9am</div>
-          <div style="position:absolute;top:70px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">10am</div>
-          <div style="position:absolute;top:138px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">11am</div>
-          <div style="position:absolute;top:206px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">12pm</div>
-          <div style="position:absolute;top:274px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">1pm</div>
-          <div style="position:absolute;top:342px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">2pm</div>
-          <div style="position:absolute;top:410px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">3pm</div>
-          <div style="position:absolute;top:478px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">4pm</div>
-          <div style="position:absolute;top:536px;right:6px;font-size:0.62rem;color:#9ca3af;font-weight:600;">5pm</div>
+        <!-- MON -->
+        <div style="padding:12px;display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--border);">
+          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Admin / Emails</div>
+            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">9 - 10am</div>
+          </div>
+          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
+            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">10 - 11:30am</div>
+          </div>
+          <div style="background:#fef9c3;border-left:3px solid #eab308;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#713f12;">Team Meeting</div>
+            <div style="font-size:0.7rem;color:#92400e;margin-top:2px;">11:30am - 12:15pm</div>
+          </div>
+          <div style="background:#f3f4f6;border-left:3px solid #6b7280;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#374151;">Lunch</div>
+            <div style="font-size:0.7rem;color:#4b5563;margin-top:2px;">12:15 - 1pm</div>
+          </div>
+          <div style="background:#dcfce7;border-left:3px solid #22c55e;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#14532d;">Meetings / Calls</div>
+            <div style="font-size:0.7rem;color:#166534;margin-top:2px;">1 - 3pm</div>
+          </div>
+          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
+            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">3 - 4:30pm</div>
+          </div>
+          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Plan Tomorrow</div>
+            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">4:30 - 5pm</div>
+          </div>
         </div>
 
-        <!-- Day columns -->
-        <div style="flex:1;display:grid;grid-template-columns:repeat(5,1fr);">
-
-          <!-- shared column style: 32 rows × 15px, hourly guide lines -->
-          <!-- MON: Admin 9-10(1/5), CallBlk 10-11:30(5/11), TeamMtg 11:30-12:15(11/14), Lunch 12:15-1(14/17), Mtgs 1-3(17/25), CallBlk 3-4:30(25/31), Plan 4:30-5(31/33) -->
-          <div style="display:grid;grid-template-rows:repeat(32,17px);border-right:1px solid var(--border);background:repeating-linear-gradient(to bottom,white 0px,white 67px,#f1f5f9 67px,#f1f5f9 68px);">
-            <div style="grid-row:1/5;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#9d174d;line-height:1.2;">Admin / Emails</div>
-              <div style="font-size:0.65rem;color:#be185d;margin-top:1px;">9 - 10am</div>
-            </div>
-            <div style="grid-row:5/11;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#991b1b;line-height:1.2;">Call Block</div>
-              <div style="font-size:0.65rem;color:#b91c1c;margin-top:1px;">10 - 11:30am</div>
-            </div>
-            <div style="grid-row:11/14;background:#fef9c3;border-left:3px solid #eab308;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#713f12;line-height:1.2;">Team Meeting</div>
-              <div style="font-size:0.65rem;color:#92400e;margin-top:1px;">11:30am - 12:15pm</div>
-            </div>
-            <div style="grid-row:14/17;background:#f3f4f6;border-left:3px solid #6b7280;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#374151;line-height:1.2;">Lunch</div>
-              <div style="font-size:0.65rem;color:#4b5563;margin-top:1px;">12:15 - 1pm</div>
-            </div>
-            <div style="grid-row:17/25;background:#dcfce7;border-left:3px solid #22c55e;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#14532d;line-height:1.2;">Meetings / Calls</div>
-              <div style="font-size:0.65rem;color:#166534;margin-top:1px;">1 - 3pm</div>
-            </div>
-            <div style="grid-row:25/31;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#991b1b;line-height:1.2;">Call Block</div>
-              <div style="font-size:0.65rem;color:#b91c1c;margin-top:1px;">3 - 4:30pm</div>
-            </div>
-            <div style="grid-row:31/33;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#9d174d;line-height:1.2;">Plan Tomorrow</div>
-              <div style="font-size:0.65rem;color:#be185d;margin-top:1px;">4:30 - 5pm</div>
-            </div>
+        <!-- TUE -->
+        <div style="padding:12px;display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--border);">
+          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Admin / Emails</div>
+            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">9 - 9:30am</div>
           </div>
-
-          <!-- TUE: Admin 9-9:30(1/3), CallBlk 9:30-12(3/13), TeamMtg 12-12:30(13/15), Lunch 12:30-1:15(15/18), Mtgs 1:15-2:15(18/22), CallBlk 2:15-4:30(22/31), Plan 4:30-5(31/33) -->
-          <div style="display:grid;grid-template-rows:repeat(32,17px);border-right:1px solid var(--border);background:repeating-linear-gradient(to bottom,white 0px,white 67px,#f1f5f9 67px,#f1f5f9 68px);">
-            <div style="grid-row:1/3;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#9d174d;line-height:1.2;">Admin / Emails</div>
-              <div style="font-size:0.65rem;color:#be185d;margin-top:1px;">9 - 9:30am</div>
-            </div>
-            <div style="grid-row:3/13;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#991b1b;line-height:1.2;">Call Block</div>
-              <div style="font-size:0.65rem;color:#b91c1c;margin-top:1px;">9:30am - 12pm</div>
-            </div>
-            <div style="grid-row:13/15;background:#fef9c3;border-left:3px solid #eab308;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#713f12;line-height:1.2;">Team Meeting</div>
-              <div style="font-size:0.65rem;color:#92400e;margin-top:1px;">12 - 12:30pm</div>
-            </div>
-            <div style="grid-row:15/18;background:#f3f4f6;border-left:3px solid #6b7280;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#374151;line-height:1.2;">Lunch</div>
-              <div style="font-size:0.65rem;color:#4b5563;margin-top:1px;">12:30 - 1:15pm</div>
-            </div>
-            <div style="grid-row:18/22;background:#dcfce7;border-left:3px solid #22c55e;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#14532d;line-height:1.2;">Meetings / Calls</div>
-              <div style="font-size:0.65rem;color:#166534;margin-top:1px;">1:15 - 2:15pm</div>
-            </div>
-            <div style="grid-row:22/31;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#991b1b;line-height:1.2;">Call Block</div>
-              <div style="font-size:0.65rem;color:#b91c1c;margin-top:1px;">2:15 - 4:30pm</div>
-            </div>
-            <div style="grid-row:31/33;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#9d174d;line-height:1.2;">Plan Tomorrow</div>
-              <div style="font-size:0.65rem;color:#be185d;margin-top:1px;">4:30 - 5pm</div>
-            </div>
+          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
+            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">9:30am - 12pm</div>
           </div>
-
-          <!-- WED: Commute 9-9:45(1/4), FieldWork 9:45-12(4/13), TeamMtg 12-12:30(13/15), Lunch 12:30-1:15(15/18), FieldWork 1:15-4(18/29), Commute/Admin 4-5(29/33) -->
-          <div style="display:grid;grid-template-rows:repeat(32,17px);border-right:1px solid var(--border);background:repeating-linear-gradient(to bottom,#fdf4ff 0px,#fdf4ff 67px,#ede9fe 67px,#ede9fe 68px);">
-            <div style="grid-row:1/4;background:#dbeafe;border-left:3px solid #3b82f6;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#1e40af;line-height:1.2;">Commute</div>
-              <div style="font-size:0.65rem;color:#1d4ed8;margin-top:1px;">9 - 9:45am</div>
-            </div>
-            <div style="grid-row:4/13;background:#f3e8ff;border-left:3px solid #a855f7;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;">
-              <div>
-                <div style="font-weight:700;font-size:0.72rem;color:#581c87;line-height:1.2;">Field Work</div>
-                <div style="font-size:0.65rem;color:#6b21a8;margin-top:1px;">9:45am - 12pm</div>
-              </div>
-              <div style="font-size:0.65rem;color:#7e22ce;font-style:italic;">Drop-ins &amp; in-person meetings</div>
-            </div>
-            <div style="grid-row:13/15;background:#fef9c3;border-left:3px solid #eab308;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#713f12;line-height:1.2;">Team Meeting</div>
-              <div style="font-size:0.65rem;color:#92400e;margin-top:1px;">12 - 12:30pm</div>
-            </div>
-            <div style="grid-row:15/18;background:#f3f4f6;border-left:3px solid #6b7280;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#374151;line-height:1.2;">Lunch</div>
-              <div style="font-size:0.65rem;color:#4b5563;margin-top:1px;">12:30 - 1:15pm</div>
-            </div>
-            <div style="grid-row:18/29;background:#f3e8ff;border-left:3px solid #a855f7;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;display:flex;flex-direction:column;justify-content:space-between;">
-              <div>
-                <div style="font-weight:700;font-size:0.72rem;color:#581c87;line-height:1.2;">Field Work</div>
-                <div style="font-size:0.65rem;color:#6b21a8;margin-top:1px;">1:15 - 4pm</div>
-              </div>
-              <div style="font-size:0.65rem;color:#7e22ce;font-style:italic;">Demos &amp; discovery meetings</div>
-            </div>
-            <div style="grid-row:29/33;background:#dbeafe;border-left:3px solid #3b82f6;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#1e40af;line-height:1.2;">Commute / Admin</div>
-              <div style="font-size:0.65rem;color:#1d4ed8;margin-top:1px;">4 - 5pm</div>
-            </div>
+          <div style="background:#fef9c3;border-left:3px solid #eab308;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#713f12;">Team Meeting</div>
+            <div style="font-size:0.7rem;color:#92400e;margin-top:2px;">12 - 12:30pm</div>
           </div>
-
-          <!-- THU: same schedule as TUE -->
-          <div style="display:grid;grid-template-rows:repeat(32,17px);border-right:1px solid var(--border);background:repeating-linear-gradient(to bottom,white 0px,white 67px,#f1f5f9 67px,#f1f5f9 68px);">
-            <div style="grid-row:1/3;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#9d174d;line-height:1.2;">Admin / Emails</div>
-              <div style="font-size:0.65rem;color:#be185d;margin-top:1px;">9 - 9:30am</div>
-            </div>
-            <div style="grid-row:3/13;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#991b1b;line-height:1.2;">Call Block</div>
-              <div style="font-size:0.65rem;color:#b91c1c;margin-top:1px;">9:30am - 12pm</div>
-            </div>
-            <div style="grid-row:13/15;background:#fef9c3;border-left:3px solid #eab308;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#713f12;line-height:1.2;">Team Meeting</div>
-              <div style="font-size:0.65rem;color:#92400e;margin-top:1px;">12 - 12:30pm</div>
-            </div>
-            <div style="grid-row:15/18;background:#f3f4f6;border-left:3px solid #6b7280;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#374151;line-height:1.2;">Lunch</div>
-              <div style="font-size:0.65rem;color:#4b5563;margin-top:1px;">12:30 - 1:15pm</div>
-            </div>
-            <div style="grid-row:18/22;background:#dcfce7;border-left:3px solid #22c55e;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#14532d;line-height:1.2;">Meetings / Calls</div>
-              <div style="font-size:0.65rem;color:#166534;margin-top:1px;">1:15 - 2:15pm</div>
-            </div>
-            <div style="grid-row:22/31;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#991b1b;line-height:1.2;">Call Block</div>
-              <div style="font-size:0.65rem;color:#b91c1c;margin-top:1px;">2:15 - 4:30pm</div>
-            </div>
-            <div style="grid-row:31/33;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#9d174d;line-height:1.2;">Plan Tomorrow</div>
-              <div style="font-size:0.65rem;color:#be185d;margin-top:1px;">4:30 - 5pm</div>
-            </div>
+          <div style="background:#f3f4f6;border-left:3px solid #6b7280;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#374151;">Lunch</div>
+            <div style="font-size:0.7rem;color:#4b5563;margin-top:2px;">12:30 - 1:15pm</div>
           </div>
-
-          <!-- FRI: Admin 9-9:30(1/3), CallBlk 9:30-11:30(3/11), TeamMtg 11:30-12:15(11/14), Lunch 12:15-1(14/17), Mtgs 1-2(17/21), CallBlk 2-4:30(21/31), Plan 4:30-5(31/33) -->
-          <div style="display:grid;grid-template-rows:repeat(32,17px);background:repeating-linear-gradient(to bottom,white 0px,white 67px,#f1f5f9 67px,#f1f5f9 68px);">
-            <div style="grid-row:1/3;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#9d174d;line-height:1.2;">Admin / Emails</div>
-              <div style="font-size:0.65rem;color:#be185d;margin-top:1px;">9 - 9:30am</div>
-            </div>
-            <div style="grid-row:3/11;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#991b1b;line-height:1.2;">Call Block</div>
-              <div style="font-size:0.65rem;color:#b91c1c;margin-top:1px;">9:30 - 11:30am</div>
-            </div>
-            <div style="grid-row:11/14;background:#fef9c3;border-left:3px solid #eab308;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#713f12;line-height:1.2;">Team Meeting</div>
-              <div style="font-size:0.65rem;color:#92400e;margin-top:1px;">11:30am - 12:15pm</div>
-            </div>
-            <div style="grid-row:14/17;background:#f3f4f6;border-left:3px solid #6b7280;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#374151;line-height:1.2;">Lunch</div>
-              <div style="font-size:0.65rem;color:#4b5563;margin-top:1px;">12:15 - 1pm</div>
-            </div>
-            <div style="grid-row:17/21;background:#dcfce7;border-left:3px solid #22c55e;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#14532d;line-height:1.2;">Meetings / Calls</div>
-              <div style="font-size:0.65rem;color:#166534;margin-top:1px;">1 - 2pm</div>
-            </div>
-            <div style="grid-row:21/31;background:#fee2e2;border-left:3px solid #ef4444;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#991b1b;line-height:1.2;">Call Block</div>
-              <div style="font-size:0.65rem;color:#b91c1c;margin-top:1px;">2 - 4:30pm</div>
-            </div>
-            <div style="grid-row:31/33;background:#fce7f3;border-left:3px solid #ec4899;border-radius:4px;margin:1px 2px;padding:5px 7px;overflow:hidden;">
-              <div style="font-weight:700;font-size:0.72rem;color:#9d174d;line-height:1.2;">Plan Next Week</div>
-              <div style="font-size:0.65rem;color:#be185d;margin-top:1px;">4:30 - 5pm</div>
-            </div>
+          <div style="background:#dcfce7;border-left:3px solid #22c55e;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#14532d;">Meetings / Calls</div>
+            <div style="font-size:0.7rem;color:#166534;margin-top:2px;">1:15 - 2:15pm</div>
           </div>
-
+          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
+            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">2:15 - 4:30pm</div>
+          </div>
+          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Plan Tomorrow</div>
+            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">4:30 - 5pm</div>
+          </div>
         </div>
+
+        <!-- WED -->
+        <div style="padding:12px;display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--border);background:#fdf4ff;">
+          <div style="background:#ede9fe;border-left:3px solid #3b82f6;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#1e40af;">Commute</div>
+            <div style="font-size:0.7rem;color:#1d4ed8;margin-top:2px;">9 - 9:45am</div>
+          </div>
+          <div style="background:#f3e8ff;border-left:3px solid #a855f7;border-radius:6px;padding:8px 10px;flex:1;display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+              <div style="font-weight:700;font-size:0.75rem;color:#581c87;">Field Work</div>
+              <div style="font-size:0.7rem;color:#6b21a8;margin-top:2px;">9:45am - 12pm</div>
+            </div>
+            <div style="font-size:0.68rem;color:#7e22ce;margin-top:6px;font-style:italic;">Drop-ins &amp; in-person meetings</div>
+          </div>
+          <div style="background:#fef9c3;border-left:3px solid #eab308;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#713f12;">Team Meeting</div>
+            <div style="font-size:0.7rem;color:#92400e;margin-top:2px;">12 - 12:30pm</div>
+          </div>
+          <div style="background:#f3f4f6;border-left:3px solid #6b7280;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#374151;">Lunch</div>
+            <div style="font-size:0.7rem;color:#4b5563;margin-top:2px;">12:30 - 1:15pm</div>
+          </div>
+          <div style="background:#f3e8ff;border-left:3px solid #a855f7;border-radius:6px;padding:8px 10px;flex:1;display:flex;flex-direction:column;justify-content:space-between;">
+            <div>
+              <div style="font-weight:700;font-size:0.75rem;color:#581c87;">Field Work</div>
+              <div style="font-size:0.7rem;color:#6b21a8;margin-top:2px;">1:15 - 4pm</div>
+            </div>
+            <div style="font-size:0.68rem;color:#7e22ce;margin-top:6px;font-style:italic;">Demos &amp; discovery meetings</div>
+          </div>
+          <div style="background:#ede9fe;border-left:3px solid #3b82f6;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#1e40af;">Commute / Admin</div>
+            <div style="font-size:0.7rem;color:#1d4ed8;margin-top:2px;">4 - 5pm</div>
+          </div>
+        </div>
+
+        <!-- THU -->
+        <div style="padding:12px;display:flex;flex-direction:column;gap:6px;border-right:1px solid var(--border);">
+          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Admin / Emails</div>
+            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">9 - 9:30am</div>
+          </div>
+          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
+            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">9:30am - 12pm</div>
+          </div>
+          <div style="background:#fef9c3;border-left:3px solid #eab308;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#713f12;">Team Meeting</div>
+            <div style="font-size:0.7rem;color:#92400e;margin-top:2px;">12 - 12:30pm</div>
+          </div>
+          <div style="background:#f3f4f6;border-left:3px solid #6b7280;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#374151;">Lunch</div>
+            <div style="font-size:0.7rem;color:#4b5563;margin-top:2px;">12:30 - 1:15pm</div>
+          </div>
+          <div style="background:#dcfce7;border-left:3px solid #22c55e;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#14532d;">Meetings / Calls</div>
+            <div style="font-size:0.7rem;color:#166534;margin-top:2px;">1:15 - 2:15pm</div>
+          </div>
+          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
+            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">2:15 - 4:30pm</div>
+          </div>
+          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Plan Tomorrow</div>
+            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">4:30 - 5pm</div>
+          </div>
+        </div>
+
+        <!-- FRI -->
+        <div style="padding:12px;display:flex;flex-direction:column;gap:6px;">
+          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Admin / Emails</div>
+            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">9 - 9:30am</div>
+          </div>
+          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
+            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">9:30 - 11:30am</div>
+          </div>
+          <div style="background:#fef9c3;border-left:3px solid #eab308;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#713f12;">Team Meeting</div>
+            <div style="font-size:0.7rem;color:#92400e;margin-top:2px;">11:30am - 12:15pm</div>
+          </div>
+          <div style="background:#f3f4f6;border-left:3px solid #6b7280;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#374151;">Lunch</div>
+            <div style="font-size:0.7rem;color:#4b5563;margin-top:2px;">12:15 - 1pm</div>
+          </div>
+          <div style="background:#dcfce7;border-left:3px solid #22c55e;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#14532d;">Meetings / Calls</div>
+            <div style="font-size:0.7rem;color:#166534;margin-top:2px;">1 - 2pm</div>
+          </div>
+          <div style="background:#fee2e2;border-left:3px solid #ef4444;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#991b1b;">Call Block</div>
+            <div style="font-size:0.7rem;color:#b91c1c;margin-top:2px;">2 - 4:30pm</div>
+          </div>
+          <div style="background:#fce7f3;border-left:3px solid #ec4899;border-radius:6px;padding:8px 10px;">
+            <div style="font-weight:700;font-size:0.75rem;color:#9d174d;">Plan Next Week</div>
+            <div style="font-size:0.7rem;color:#be185d;margin-top:2px;">4:30 - 5pm</div>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -998,7 +1114,7 @@
       </ul>
     </div>
 
-    <div class="section-title">🔵 Lead Funnel Management</div>
+    <div class="section-title" id="lead-pipeline">🔵 Lead Funnel Management</div>
     <div class="stage-grid">
       <div class="stage-card">
         <div class="stage-label"><span class="stage-dot color-new"></span>New Stage</div>
@@ -1048,7 +1164,7 @@
       </div>
     </div>
 
-    <div class="section-title">🚀 Deal Pipeline Management</div>
+    <div class="section-title" id="deal-pipeline">🚀 Deal Pipeline Management</div>
     <div class="stage-grid">
       <div class="stage-card">
         <div class="stage-label"><span class="stage-dot color-demo"></span>Full Demo Booked</div>
@@ -2243,6 +2359,13 @@
       </div>
     </div>
 
+    <div class="section-title" id="slack-channels">💬 Slack Channels</div>
+    <div class="resource-grid">
+      <div class="resource-card" style="grid-column:1/-1;">
+        <span class="resource-name" style="color:var(--text-secondary);font-style:italic;">🔜 Coming soon - key channels for the NA BD team will be listed here</span>
+      </div>
+    </div>
+
     <div class="section-title">🔗 Important Links</div>
     <div class="resource-grid">
       <div class="resource-card">
@@ -2281,6 +2404,22 @@
           <a class="resource-link" href="https://dialpad.com/login" target="_blank">Open Dialpad ↗</a>
         </div>
       </div>
+    </div>
+  </div>
+
+  <!-- ===================== TAB: TEMPLATES ===================== -->
+  <div class="tab-panel" id="templates">
+    <div class="quick-summary">
+      <h3>Quick Summary</h3>
+      <ul>
+        <li>Email templates, follow-up scripts, and messaging frameworks for every stage of the sales cycle</li>
+        <li>Copy, personalise, and send - templates are a starting point, not a script</li>
+      </ul>
+    </div>
+    <div style="text-align:center;padding:60px 20px;">
+      <div style="font-size:3rem;margin-bottom:16px;">📄</div>
+      <div style="font-size:1.3rem;font-weight:700;color:var(--text-primary);margin-bottom:10px;">Templates Coming Soon</div>
+      <div style="font-size:0.9rem;color:var(--text-secondary);max-width:420px;margin:0 auto;">Email sequences, follow-up frameworks, and outreach templates will be added here. Check back soon.</div>
     </div>
   </div>
 
@@ -2456,15 +2595,53 @@
 </main>
 
 <script>
+  // DROPDOWN TOGGLE
+  function toggleDropdown(groupId) {
+    const group = document.getElementById('group-' + groupId);
+    const wasOpen = group.classList.contains('open');
+    document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('open'));
+    if (!wasOpen) group.classList.add('open');
+  }
+
+  // Close dropdowns on outside click
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.nav-group')) {
+      document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('open'));
+    }
+  });
+
   // TAB SWITCHING
   function showTab(id, btn) {
+    // Close all dropdowns
+    document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('open'));
+
+    // Switch panel
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    btn.classList.add('active');
+    const panel = document.getElementById(id);
+    if (panel) panel.classList.add('active');
+
+    // Update nav active states
+    document.querySelectorAll('.nav-item, .nav-dropdown button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('active'));
+    if (btn) {
+      btn.classList.add('active');
+      const group = btn.closest('.nav-group');
+      if (group) group.classList.add('active');
+    }
+
+    // Clear search
     if (document.getElementById('searchInput').value) {
       document.getElementById('searchInput').value = '';
       clearHighlights();
+    }
+
+    // Scroll to anchor if specified
+    const anchor = btn && btn.dataset.anchor;
+    if (anchor) {
+      setTimeout(() => {
+        const el = document.getElementById(anchor);
+        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 60);
     }
   }
 
@@ -2497,12 +2674,13 @@
 
   // Tab id → display label mapping
   const TAB_LABELS = {
-    'overview': '🏠 Overview', 'hs-deals': '🎯 Leads & Deals',
+    'overview': '🏠 Overview', 'hs-deals': '🎯 HubSpot',
     'prospecting': '📞 Prospecting', 'cold-calling': '☎️ Cold Calling',
     'discovery': '🔍 Discovery', 'demo': '🖥️ Demo',
     'deal-manager': '💼 Deal Manager', 'deal-handover': '✅ Deal Handover',
-    'kpis': '📊 Pipeline KPIs', 'snippets': '📝 Snippets',
-    'resources': '🔗 Resources', 'referrals': '🤝 AM Referrals'
+    'kpis': '📊 KPIs', 'snippets': '📝 Snippets',
+    'resources': '🔗 Resources', 'templates': '📄 Templates',
+    'referrals': '🤝 Inbound Leads'
   };
 
   function searchContent(query) {
@@ -2559,13 +2737,15 @@
     const panel = document.getElementById(tabId);
     if (!panel) return;
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
     panel.classList.add('active');
-    // Activate matching nav button
-    document.querySelectorAll('.tab-btn').forEach(btn => {
-      if (btn.getAttribute('onclick') && btn.getAttribute('onclick').includes("'" + tabId + "'")) {
-        btn.classList.add('active');
-      }
+
+    // Update nav active states
+    document.querySelectorAll('.nav-item, .nav-dropdown button').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.nav-group').forEach(g => g.classList.remove('active'));
+    document.querySelectorAll('[data-tabid="' + tabId + '"]').forEach(btn => {
+      btn.classList.add('active');
+      const group = btn.closest('.nav-group');
+      if (group) group.classList.add('active');
     });
   }
 
