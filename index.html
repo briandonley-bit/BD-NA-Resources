@@ -733,8 +733,9 @@
 
     <!-- HubSpot -->
     <div class="nav-group" id="group-hubspot">
-      <button class="nav-group-btn" onclick="toggleDropdown('hubspot')">🎯 HubSpot <span class="chevron">▾</span></button>
+      <button class="nav-group-btn" onclick="toggleDropdown('hubspot')"><img src="https://www.hubspot.com/favicon.ico" alt="HubSpot" style="width:14px;height:14px;object-fit:contain;vertical-align:middle;margin-right:1px;"> HubSpot <span class="chevron">▾</span></button>
       <div class="nav-dropdown">
+        <button onclick="showTab('prospecting', this)" data-tabid="prospecting">📞 Prospecting Overview</button>
         <button onclick="showTab('hs-deals', this)" data-tabid="hs-deals" data-anchor="lead-pipeline">📋 Lead Pipeline</button>
         <button onclick="showTab('hs-deals', this)" data-tabid="hs-deals" data-anchor="deal-pipeline">💼 Deal Pipeline</button>
       </div>
@@ -744,7 +745,6 @@
     <div class="nav-group" id="group-sales">
       <button class="nav-group-btn" onclick="toggleDropdown('sales')">📋 Sales Process <span class="chevron">▾</span></button>
       <div class="nav-dropdown">
-        <button onclick="showTab('prospecting', this)" data-tabid="prospecting">📞 Prospecting</button>
         <button onclick="showTab('cold-calling', this)" data-tabid="cold-calling">☎️ Cold Calling</button>
         <button onclick="showTab('discovery', this)" data-tabid="discovery">🔍 Discovery Meeting</button>
         <button onclick="showTab('demo', this)" data-tabid="demo">🖥️ Demo Meeting</button>
@@ -2346,7 +2346,7 @@
       <div class="resource-card">
         <span class="resource-name">🧮 Commission Calculator</span>
         <div class="resource-links">
-          <a class="resource-link" href="https://elliottbraund-fresha.github.io/fresha-commission-calculator/" target="_blank">Open Calculator ↗</a>
+          <a class="resource-link" href="https://fresha-bdm-commission-calculator.vercel.app/" target="_blank">Open Calculator ↗</a>
         </div>
       </div>
       <div class="resource-card">
@@ -2387,9 +2387,9 @@
         </div>
       </div>
       <div class="resource-card">
-        <span class="resource-name">📔 Notion</span>
+        <span class="resource-name">📚 Learning Modules</span>
         <div class="resource-links">
-          <a class="resource-link" href="https://www.notion.so/fresha-app" target="_blank">Open Notion ↗</a>
+          <a class="resource-link" href="https://www.notion.so/fresha-app" target="_blank">Open Learning Modules ↗</a>
         </div>
       </div>
       <div class="resource-card">
